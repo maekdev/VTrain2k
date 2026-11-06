@@ -1,115 +1,805 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f4f5fb">
-<title>Vokabelatelier</title>
-<style>
-:root{--ink:#20243a;--muted:#72778d;--paper:#f4f5fb;--card:#fff;--line:#e6e8f1;--purple:#6857d9;--purple2:#eeeaff;--green:#17845c;--red:#d83c55;--shadow:0 16px 45px #30345a12}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#e9e6ff 0,transparent 38%),var(--paper);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:15px;padding:12px 18px;font-weight:700;transition:.15s transform,.15s opacity}button:active{transform:scale(.98)}button:disabled{opacity:.4;cursor:not-allowed}
-.primary{background:var(--purple);color:white;box-shadow:0 7px 18px #6857d933}.soft{background:var(--purple2);color:var(--purple)}.plain{background:#f1f2f7;color:var(--ink)}.good{background:#e2f5ec;color:var(--green)}.bad{background:#ffeaee;color:var(--red)}
-header{max-width:1050px;margin:auto;padding:26px 22px 8px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#7768e8,#a18af4);display:grid;place-items:center;color:white;font-size:22px;box-shadow:0 8px 20px #6857d944}.brand h1{font-size:21px;line-height:1.1;margin:0}.brand small{color:var(--muted)}
-.timer{font-size:12px;color:var(--muted);background:#ffffffb8;border:1px solid var(--line);border-radius:99px;padding:6px 10px;font-variant-numeric:tabular-nums}
-main{max-width:900px;margin:18px auto 60px;padding:0 18px}.panel{background:var(--card);border:1px solid #ececf4;border-radius:25px;padding:clamp(18px,4vw,30px);box-shadow:var(--shadow);margin-bottom:17px}
-h2{font-size:23px;margin:0 0 5px;letter-spacing:-.5px}p.sub{margin:0 0 22px;color:var(--muted)}
-.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.field{display:flex;flex-direction:column;gap:7px;min-width:145px}.field label{font-size:13px;font-weight:700;color:#5f6479}.field select,.field input,.answer{border:1px solid var(--line);border-radius:14px;padding:12px 13px;background:#fbfbfe;color:var(--ink);min-width:0;width:100%;outline:none}.field select:focus,.field input:focus,.answer:focus{border-color:var(--purple);box-shadow:0 0 0 3px #6857d91a}
-.drop{border:1.5px dashed #c9c6e8;background:#faf9ff;border-radius:18px;padding:17px;text-align:center;color:var(--muted);margin:16px 0}.drop strong{color:var(--ink)}.drop input{max-width:100%;margin-top:10px}
-.fileline{font-size:13px;color:var(--muted);margin-top:8px}
-.segment{display:flex;gap:7px;background:#f3f3f9;padding:5px;border-radius:15px}.segment button{flex:1;background:transparent;color:var(--muted);padding:10px}.segment button.active{background:white;color:var(--purple);box-shadow:0 2px 8px #2221}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.actions button{flex:1}
-.hidden{display:none!important}.progress{height:7px;border-radius:9px;background:#eeeff5;overflow:hidden;margin:16px 0 7px}.progress>div{height:100%;background:linear-gradient(90deg,#7666e5,#ad8ef2);width:0;transition:width .2s}
-.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.question{font-size:clamp(28px,6vw,42px);font-weight:800;letter-spacing:-1px;text-align:center;margin:24px 0 20px;overflow-wrap:anywhere}
-.answer{font-size:19px;padding:15px 16px;text-align:center}.hint{text-align:center;color:var(--muted);font-size:13px;margin-top:9px}
-.feedback{min-height:30px;text-align:center;margin:14px 0 0;font-weight:800}.correct{color:var(--green)}.wrong{color:var(--red)}.diff{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;font-size:19px;margin-top:9px}.diff span{padding:2px 4px;border-radius:5px}.diff .miss{color:var(--red);background:#ffebef;text-decoration:underline;text-decoration-thickness:2px}.diff .extra{color:var(--red);background:#ffebef;text-decoration:line-through}.diff .ok{color:var(--green)}
-.cardstage{perspective:1000px;max-width:600px;margin:20px auto}.flashcard{min-height:245px;display:grid;place-items:center;text-align:center;padding:30px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fff,#f8f7ff);box-shadow:0 12px 35px #30345a12;cursor:pointer;user-select:none}.flashcard .word{font-size:clamp(30px,6vw,44px);font-weight:800;overflow-wrap:anywhere}.flashcard .tap{color:var(--muted);font-size:13px;margin-top:15px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.stat{background:#f7f7fc;border-radius:17px;padding:17px 10px;text-align:center}.stat b{display:block;font-size:27px}.stat span{font-size:12px;color:var(--muted)}
-.promptbox{width:100%;min-height:190px;resize:vertical;border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfbfe;color:var(--ink)}
-.note{font-size:13px;color:var(--muted)}footer{text-align:center;color:#9699a9;font-size:12px;padding:12px}
-@media(max-width:560px){header{padding:18px 16px 5px}main{padding:0 12px;margin-top:12px}.panel{border-radius:21px;padding:18px}.row{gap:10px}.actions button{min-width:100%}.stats{gap:7px}.stat{padding:13px 5px}}
-@media(orientation:landscape) and (max-height:560px){header{padding-top:10px}main{margin-top:8px}.panel{padding:16px}.question{margin:12px 0}.flashcard{min-height:170px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173b5e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="VTrain2k">
+  <link rel="manifest" href="manifest.json">
+  <title>Vokabeltrainer – VTrain2k</title>
+
+  <style>
+    :root {
+      --navy: #173b5e;
+      --blue: #2878b9;
+      --light-blue: #eaf3fa;
+      --bg: #f2f6fa;
+      --white: #ffffff;
+      --green: #16834b;
+      --green-bg: #e7f6ed;
+      --red: #c03939;
+      --red-bg: #fbeaea;
+      --text: #203040;
+      --muted: #647789;
+      --border: #d5e0e9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 22px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 27px;
+    }
+
+    header small {
+      display: block;
+      margin-top: 5px;
+      opacity: .8;
+      letter-spacing: .5px;
+    }
+
+    main {
+      width: min(900px, 100%);
+      margin: 22px auto;
+      padding: 0 14px 35px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 12px #173b5e0b;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 650;
+      margin: 13px 0 6px;
+    }
+
+    textarea, input, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      font: inherit;
+      background: white;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: 3px solid #2878b933;
+      border-color: var(--blue);
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 17px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--blue);
+      color: white;
+    }
+
+    button:hover { filter: brightness(.95); }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    button.secondary {
+      background: var(--light-blue);
+      color: var(--navy);
+      border: 1px solid var(--border);
+    }
+
+    button.green { background: var(--green); }
+    button.red { background: var(--red); }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 13px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 9px;
+    }
+
+    .settings-grid, .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: var(--light-blue);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--navy);
+      font-size: 27px;
+      line-height: 1.2;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hidden { display: none !important; }
+
+    .progress {
+      height: 9px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #e4ebf1;
+      margin: 12px 0;
+    }
+
+    .progress div {
+      height: 100%;
+      width: 0;
+      background: var(--blue);
+      transition: width .2s;
+    }
+
+    .question {
+      text-align: center;
+      padding: 24px 8px;
+    }
+
+    .question .word {
+      font-size: clamp(28px, 7vw, 44px);
+      font-weight: 800;
+      color: var(--navy);
+      overflow-wrap: anywhere;
+    }
+
+    .question .direction {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    #answerInput {
+      font-size: 20px;
+      text-align: center;
+      margin: 8px 0;
+    }
+
+    .feedback {
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .feedback.correct {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .feedback.wrong {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .correct-answer {
+      font-size: 19px;
+      font-weight: 750;
+      margin-top: 5px;
+    }
+
+    .wrong-entry {
+      color: var(--red);
+      text-decoration: line-through;
+      overflow-wrap: anywhere;
+    }
+
+    .card-word {
+      font-size: clamp(28px, 7vw, 42px);
+      font-weight: 800;
+      text-align: center;
+      padding: 35px 10px;
+      color: var(--navy);
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 20px;
+    }
+
+    @media (max-width: 520px) {
+      main { margin-top: 12px; }
+      .panel { padding: 16px; }
+      .settings-grid, .stats-grid { grid-template-columns: 1fr 1fr; }
+      button { padding: 12px 13px; }
+    }
+  </style>
 </head>
+
 <body>
-<header><div class="brand"><div class="logo">✦</div><div><h1>Vokabelatelier</h1><small>Wörter lernen. Schritt für Schritt.</small></div></div><div id="timer" class="timer hidden">00:00</div></header>
+<header>
+  <h1>Vokabeltrainer</h1>
+  <small>VTrain2k · Wörter lernen. Schritt für Schritt.</small>
+</header>
+
 <main>
-<section id="setup" class="panel">
-<h2>Deine nächste Lernrunde</h2><p class="sub">Lade eine Vokabeldatei und wähle deinen Lernmodus.</p>
-<div class="drop"><strong>Vokabeldatei öffnen</strong><br><span class="note">Eine einfache .txt-Datei im unten beschriebenen Format</span><br><input id="file" type="file" accept=".txt,text/plain"><div id="filename" class="fileline">Noch keine Datei geladen</div></div>
-<div class="row">
-<div class="field"><label>Lernsprache</label><select id="language"><option value="Englisch">Englisch</option><option value="Latein">Latein</option></select></div>
-<div class="field"><label>Abfragerichtung</label><select id="direction"><option value="foreign">Fremdsprache → Deutsch</option><option value="german">Deutsch → Fremdsprache</option></select></div>
-</div>
-<div class="field" style="margin-top:14px"><label>Lernmodus</label><div class="segment"><button id="typeMode" class="active" type="button">⌨️ Eintippen</button><button id="cardMode" type="button">▣ Karteikarten</button></div></div>
-<div id="triesField" class="field" style="margin-top:14px"><label>Versuche pro Vokabel (bevor sie ans Ende kommt)</label><select id="tries"><option value="1">1 Versuch</option><option value="2">2 Versuche</option><option value="3">3 Versuche</option></select></div>
-<div class="actions"><button id="start" class="primary" disabled>Lernrunde starten →</button></div>
-<p class="note" style="margin-top:14px">Die Datei wird nur lokal in deinem Browser gelesen. Sie wird nicht hochgeladen.</p>
-</section>
-<section id="learn" class="panel hidden">
-<div class="meta"><span id="counter">Vokabel 1</span><span id="remaining">Noch 0 offen</span></div><div class="progress"><div id="bar"></div></div>
-<div id="typingArea">
-<div id="question" class="question"></div>
-<input id="answer" class="answer" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Übersetzung eingeben …">
-<div class="hint" id="tryHint">Enter = prüfen</div><div id="feedback" class="feedback"></div><div id="diff" class="diff"></div>
-<div class="actions"><button id="check" class="primary">Prüfen ↵</button><button id="next" class="soft hidden">Weiter</button></div>
-</div>
-<div id="cardArea" class="hidden">
-<div class="cardstage"><div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Karte umdrehen"><div><div id="cardWord" class="word"></div><div id="cardTap" class="tap">Antippen, um die Lösung zu sehen</div></div></div></div>
-<div class="actions"><button id="flip" class="soft">Umdrehen</button><button id="cardWrong" class="bad hidden">Falsch – später wiederholen</button><button id="cardRight" class="good hidden">Richtig – erledigt</button></div>
-</div>
-</section>
-<section id="done" class="panel hidden">
-<h2>Runde geschafft! 🎉</h2><p class="sub">Alle Vokabeln wurden richtig gelöst bzw. als gewusst markiert.</p>
-<div class="stats"><div class="stat"><b id="statTotal">0</b><span>Abfragen / Karten</span></div><div class="stat"><b id="statRight">0</b><span>Richtig</span></div><div class="stat"><b id="statWrong">0</b><span>Falsch</span></div></div>
-<p id="percent" class="hint"></p><p id="elapsed" class="hint"></p>
-<div class="actions"><button id="again" class="primary">Noch eine Runde</button><button id="home" class="plain">Zurück zur Auswahl</button></div>
-</section>
-<section class="panel">
-<h2>LLM-Prompt für neue Vokabeldateien</h2><p class="sub">Kopiere diesen Prompt in ein LLM und füge ein Foto deiner Buchseite hinzu.</p>
-<textarea id="prompt" class="promptbox" readonly></textarea><div class="actions"><button id="copyPrompt" class="soft">Prompt kopieren</button></div>
-<p class="note">Tipp: Bitte das LLM, Unsicherheiten zu markieren und keine unleserlichen Wörter zu erraten.</p>
-</section>
-<section class="panel">
-<h2>Dateiformat</h2><p class="sub">Eine Zeile pro Vokabelpaar. UTF-8, Endung .txt.</p>
-<pre style="white-space:pre-wrap;background:#f7f7fc;padding:14px;border-radius:13px;font-size:13px"># Sprache: Englisch
-# Titel: Unit 3 – At school
-apple | Apfel
-to borrow; borrow | ausleihen; borgen
-beautiful | schön; hübsch</pre>
-<p class="note">Links steht immer die Fremdsprache, rechts Deutsch. Trenne beide Seiten mit <b>|</b>. Mehrere akzeptierte Lösungen innerhalb einer Seite mit <b>;</b> trennen. Leerzeilen und Zeilen, die mit # beginnen, werden ignoriert. Umlaute und Sonderzeichen sind erlaubt.</p>
-</section>
+  <section class="panel" id="setupPanel">
+    <h2>Deine Vokabelliste</h2>
+
+    <label for="vocabText">Vokabeln hier einfügen</label>
+    <textarea id="vocabText" spellcheck="false" placeholder="apple | Apfel&#10;to learn | lernen&#10;beautiful | schön; hübsch"></textarea>
+
+    <div class="button-row">
+      <button id="loadTextBtn">Vokabeln übernehmen</button>
+      <button class="secondary" id="importBtn">TXT-Datei importieren</button>
+      <input id="fileInput" type="file" accept=".txt,text/plain" class="hidden">
+    </div>
+
+    <div class="hint" id="listStatus">Noch keine Vokabeln geladen.</div>
+    <div class="hint">
+      Format: Fremdsprache | Deutsch. Mehrere richtige Übersetzungen
+      mit Semikolon trennen. Zeilen mit # werden ignoriert.
+    </div>
+
+    <div class="settings-grid">
+      <div>
+        <label for="direction">Abfragerichtung</label>
+        <select id="direction">
+          <option value="forward">Fremdsprache → Deutsch</option>
+          <option value="backward">Deutsch → Fremdsprache</option>
+          <option value="random">Zufällig gemischt</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="mode">Lernmodus</label>
+        <select id="mode">
+          <option value="typing">Eingabe</option>
+          <option value="cards">Karteikarten</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="attempts">Versuche pro Vokabel</label>
+        <select id="attempts">
+          <option value="1">1 Versuch</option>
+          <option value="2">2 Versuche</option>
+          <option value="3">3 Versuche</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button id="startBtn">Lernen starten</button>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="statsPanel">
+    <h2>Deine Statistik</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <strong id="totalStat">0</strong>
+        <span>Antworten insgesamt</span>
+      </div>
+      <div class="stat">
+        <strong id="correctStat">0 · 0%</strong>
+        <span>Richtig</span>
+      </div>
+      <div class="stat">
+        <strong id="wrongStat">0 · 0%</strong>
+        <span>Falsch</span>
+      </div>
+      <div class="stat">
+        <strong id="timeStat">00:00</strong>
+        <span>Lernzeit</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="learningPanel">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <strong id="progressText">Vokabel 1</strong>
+      <button class="secondary" id="stopBtn">Beenden</button>
+    </div>
+
+    <div class="progress"><div id="progressBar"></div></div>
+
+    <div id="typingArea">
+      <div class="question">
+        <div class="direction" id="directionText">Übersetze ins Deutsche</div>
+        <div class="word" id="questionWord">apple</div>
+      </div>
+
+      <label for="answerInput">Deine Antwort</label>
+      <input id="answerInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Antwort eingeben …">
+
+      <div class="hint" id="keyboardHint">Enter = Antwort prüfen</div>
+      <div id="feedback" class="hidden"></div>
+
+      <div class="button-row">
+        <button id="checkBtn">Prüfen (Enter)</button>
+        <button class="secondary hidden" id="nextBtn">Nächste Vokabel (Enter)</button>
+      </div>
+    </div>
+
+    <div id="cardsArea" class="hidden">
+      <div class="question">
+        <div class="direction">Karte antippen oder umdrehen</div>
+      </div>
+      <div class="card-word" id="cardWord">apple</div>
+      <div class="hint" id="cardHint" style="text-align:center">Tippe auf die Karte, um die Lösung zu sehen.</div>
+      <div class="button-row" style="justify-content:center">
+        <button class="secondary" id="flipBtn">Lösung anzeigen</button>
+      </div>
+      <div class="button-row hidden" id="cardDecision">
+        <button class="green" id="cardCorrect">Richtig</button>
+        <button class="red" id="cardWrong">Falsch</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="endPanel">
+    <h2>Einheit beendet</h2>
+    <p id="endMessage"></p>
+    <button id="restartBtn">Zurück zur Auswahl</button>
+  </section>
 </main>
-<footer>Vokabelatelier · Läuft vollständig lokal im Browser</footer>
+
+<footer>VTrain2k · Vokabeltrainer · Läuft lokal im Browser</footer>
+
 <script>
-const $=id=>document.getElementById(id);
-const promptText=`Du bist ein sorgfältiger Assistent zur Erstellung von Vokabel-Lerndateien für Deutschsprachige, die Englisch oder Latein lernen.\n\nAnalysiere das beigefügte Foto einer Buchseite. Lies alle erkennbaren Vokabeln und ihre deutschen Bedeutungen aus. Erstelle daraus eine UTF-8-Textdatei im folgenden Format:\n\n# Sprache: Englisch ODER Latein\n# Titel: kurzer Titel / Lektion\nFremdsprachliches Wort | deutsche Bedeutung\n\nRegeln:\n- Genau ein Vokabelpaar pro Zeile.\n- Fremdsprache steht links, Deutsch rechts; als Trennzeichen ausschließlich ein senkrechter Strich |.\n- Mehrere gebräuchliche Bedeutungen oder akzeptierte Übersetzungen auf derselben Seite mit Semikolon trennen.\n- Verben in der im Buch angegebenen Form übernehmen; bei Bedarf die Grundform ergänzen, aber nichts erfinden.\n- Keine Beispielsätze, Erklärungen, Nummerierungen oder Tabellen außerhalb des Dateiformats.\n- Doppelte Einträge entfernen, Schreibweise und Akzente sorgfältig erhalten.\n- Unleserliche oder mehrdeutige Einträge NICHT erraten. Am Ende nach einem Kommentarblock (# Prüfen: ...) mit den fraglichen Stellen und deiner Unsicherheit fragen.\n- Wenn das Foto mehrere Spalten enthält, alle Spalten vollständig und in Leserichtung erfassen.\n\nGib zuerst den Inhalt der fertigen .txt-Datei in einem einzigen Codeblock aus. Nenne danach kurz die Anzahl der extrahierten Einträge.`;
-$('prompt').value=promptText;
-let entries=[],mode='typing',queue=[],current=null,tries=1,attempts=0,wrong=0,right=0,started=0,elapsed=0,remainingTries=0,locked=false,flipped=false,sessionDirection='foreign',sourceName='';
-function parseFile(text){let rows=[];for(const raw of text.replace(/^\uFEFF/,'').split(/\r?\n/)){let line=raw.trim();if(!line||line.startsWith('#'))continue;let ix=line.indexOf('|');if(ix<0)continue;let left=line.slice(0,ix).trim(),right=line.slice(ix+1).trim();if(left&&right)rows.push({foreign:left.split(';').map(x=>x.trim()).filter(Boolean),german:right.split(';').map(x=>x.trim()).filter(Boolean)});}return rows;}
-$('file').addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let text=await f.text();entries=parseFile(text);sourceName=f.name;$('filename').textContent=entries.length?`${f.name} · ${entries.length} Vokabeln`:`${f.name} · Keine gültigen Zeilen gefunden`;$('start').disabled=!entries.length;}catch(err){$('filename').textContent='Datei konnte nicht gelesen werden.';$('start').disabled=true;}});
-$('typeMode').onclick=()=>setMode('typing');$('cardMode').onclick=()=>setMode('cards');
-function setMode(m){mode=m;$('typeMode').classList.toggle('active',m==='typing');$('cardMode').classList.toggle('active',m==='cards');$('triesField').classList.toggle('hidden',m==='cards');}
-$('start').onclick=()=>startRound();
-function startRound(){if(!entries.length)return;tries=mode==='typing'?Number($('tries').value):1;sessionDirection=$('direction').value;queue=entries.map((_,i)=>i);for(let i=queue.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}attempts=wrong=right=0;started=Date.now();elapsed=0;$('setup').classList.add('hidden');$('done').classList.add('hidden');$('learn').classList.remove('hidden');$('timer').classList.remove('hidden');$('typingArea').classList.toggle('hidden',mode!=='typing');$('cardArea').classList.toggle('hidden',mode!=='cards');render();}
-function render(){if(!queue.length){finish();return;}current=queue[0];remainingTries=tries;locked=false;flipped=false;$('counter').textContent=`Vokabel ${entries.length-queue.length+1} · ${entries.length} insgesamt`;$('remaining').textContent=`Noch ${queue.length} offen`;$('bar').style.width=((entries.length-queue.length)/entries.length*100)+'%';let e=entries[current];$('question').textContent=(sessionDirection==='foreign'?e.foreign:e.german).join(' / ');$('answer').value='';$('answer').disabled=false;$('feedback').textContent='';$('feedback').className='feedback';$('diff').innerHTML='';$('tryHint').textContent=`Noch ${remainingTries} ${remainingTries===1?'Versuch':'Versuche'} · Enter = prüfen`;$('check').classList.remove('hidden');$('next').classList.add('hidden');$('next').textContent='Weiter';$('cardWord').textContent=(sessionDirection==='foreign'?e.foreign:e.german).join(' / ');$('cardTap').textContent='Antippen, um die Lösung zu sehen';$('cardRight').classList.add('hidden');$('cardWrong').classList.add('hidden');$('flip').classList.remove('hidden');}
-function norm(s){return s.toLocaleLowerCase('de').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.,!?;:()[\]{}"']/g,' ').replace(/\s+/g,' ').trim();}
-function expected(){let e=entries[current];return sessionDirection==='foreign'?e.german:e.foreign;}
-function userTokens(s){return norm(s).split(' ').filter(Boolean)}
-function bestExpected(user,options){let u=norm(user);return options.slice().sort((a,b)=>distance(u,norm(a))-distance(u,norm(b)))[0]||''}
-function distance(a,b){let d=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=d[0];d[0]=i;for(let j=1;j<=b.length;j++){let old=d[j];d[j]=Math.min(d[j]+1,d[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old;}}return d[b.length]}
-function showDiff(user,correct){let u=userTokens(user),c=userTokens(correct),n=Math.max(u.length,c.length),html='';for(let i=0;i<n;i++){let a=u[i],b=c[i];if(a===undefined)html+=`<span class="miss">${esc(b)}</span>`;else if(b===undefined)html+=`<span class="extra">${esc(a)}</span>`;else if(a===b)html+=`<span class="ok">${esc(b)}</span>`;else html+=`<span class="miss">${esc(b)}</span><span class="extra">${esc(a)}</span>`;}$('diff').innerHTML=html;}
-function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function check(){if(locked||!queue.length)return;let user=$('answer').value.trim();if(!user)return;attempts++;let opts=expected(),match=opts.some(x=>norm(x)===norm(user));if(match){right++;locked=true;$('feedback').textContent='RICHTIG';$('feedback').className='feedback correct';$('answer').disabled=true;$('check').classList.add('hidden');$('next').classList.remove('hidden');$('diff').innerHTML='';}else{wrong++;remainingTries--;$('feedback').textContent='FALSCH';$('feedback').className='feedback wrong';let best=bestExpected(user,opts);showDiff(user,best);if(remainingTries>0){$('tryHint').textContent=`Noch ${remainingTries} ${remainingTries===1?'Versuch':'Versuche'} – versuche es erneut.`;$('answer').select();}else{locked=true;$('answer').disabled=true;$('check').classList.add('hidden');$('next').classList.remove('hidden');$('next').textContent='Später erneut versuchen';}}updateTimer();}
-function nextTyping(){if(!locked)return;let wasCorrect=$('feedback').classList.contains('correct');if(wasCorrect)queue.shift();else{let item=queue.shift();queue.push(item);} $('next').textContent='Weiter';render();}
-$('check').onclick=check;$('next').onclick=nextTyping;$('answer').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!$('check').classList.contains('hidden'))check();else if(!$('next').classList.contains('hidden'))nextTyping();}});
-function flip(){if(flipped)return;flipped=true;let e=entries[current];$('cardWord').textContent=(sessionDirection==='foreign'?e.german:e.foreign).join(' / ');$('cardTap').textContent='Lösung';$('flip').classList.add('hidden');$('cardRight').classList.remove('hidden');$('cardWrong').classList.remove('hidden');}
-$('flashcard').onclick=flip;$('flashcard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}};$('flip').onclick=flip;
-$('cardRight').onclick=()=>{attempts++;right++;queue.shift();render();updateTimer();};$('cardWrong').onclick=()=>{attempts++;wrong++;let x=queue.shift();queue.push(x);render();updateTimer();};
-function updateTimer(){let s=Math.floor((Date.now()-started)/1000);$('timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
-function finish(){elapsed=Math.floor((Date.now()-started)/1000);$('learn').classList.add('hidden');$('done').classList.remove('hidden');$('timer').classList.add('hidden');$('statTotal').textContent=attempts;$('statRight').textContent=right;$('statWrong').textContent=wrong;let total=right+wrong;$('percent').textContent=`Richtig: ${total?Math.round(right/total*100):0}% · Falsch: ${total?Math.round(wrong/total*100):0}%`; $('elapsed').textContent=`Benötigte Zeit: ${Math.floor(elapsed/60)} min ${elapsed%60} s`;}
-$('again').onclick=()=>startRound();$('home').onclick=()=>{$('done').classList.add('hidden');$('setup').classList.remove('hidden');};
-$('copyPrompt').onclick=async()=>{try{await navigator.clipboard.writeText(promptText);$('copyPrompt').textContent='Kopiert ✓';setTimeout(()=>$('copyPrompt').textContent='Prompt kopieren',1800);}catch(e){$('prompt').select();document.execCommand('copy');$('copyPrompt').textContent='Kopiert ✓';}};
+(() => {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+
+  const STORAGE_KEY = "vtrain2k-vocab-v1";
+
+  let vocab = [];
+  let queue = [];
+  let current = null;
+  let currentAttempts = 0;
+  let maxAttempts = 1;
+  let mode = "typing";
+  let direction = "forward";
+  let cardFlipped = false;
+  let checked = false;
+  let total = 0;
+  let correct = 0;
+  let wrong = 0;
+  let startTime = 0;
+  let elapsedBefore = 0;
+  let timerHandle = null;
+
+  function parseVocab(text) {
+    const result = [];
+
+    text.split(/\r?\n/).forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) return;
+
+      const parts = trimmed.split("|");
+      if (parts.length < 2) return;
+
+      const foreign = parts[0].trim();
+      const german = parts.slice(1).join("|")
+        .split(";")
+        .map(x => x.trim())
+        .filter(Boolean);
+
+      if (foreign && german.length) {
+        result.push({ foreign, german });
+      }
+    });
+
+    return result;
+  }
+
+  function saveText() {
+    try {
+      localStorage.setItem(STORAGE_KEY, $("vocabText").value);
+    } catch (e) {
+      console.warn("Lokales Speichern nicht möglich:", e);
+    }
+  }
+
+  function loadSavedText() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        $("vocabText").value = saved;
+        vocab = parseVocab(saved);
+        updateListStatus();
+      }
+    } catch (e) {
+      console.warn("Lokales Laden nicht möglich:", e);
+    }
+  }
+
+  function updateListStatus() {
+    $("listStatus").textContent = vocab.length
+      ? vocab.length + " Vokabeln bereit."
+      : "Keine gültigen Vokabeln gefunden.";
+  }
+
+  function importText(text) {
+    $("vocabText").value = text;
+    saveText();
+    vocab = parseVocab(text);
+    updateListStatus();
+  }
+
+  $("vocabText").addEventListener("input", saveText);
+
+  $("loadTextBtn").addEventListener("click", () => {
+    vocab = parseVocab($("vocabText").value);
+    updateListStatus();
+    if (!vocab.length) {
+      alert("Bitte füge mindestens eine gültige Vokabel ein.");
+    }
+  });
+
+  $("importBtn").addEventListener("click", () => $("fileInput").click());
+
+  $("fileInput").addEventListener("change", async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      importText(await file.text());
+    } catch (e) {
+      alert("Die Datei konnte nicht gelesen werden.");
+    }
+    event.target.value = "";
+  });
+
+  function getPrompt(item) {
+    let actualDirection = direction;
+
+    if (direction === "random") {
+      actualDirection = Math.random() < .5 ? "forward" : "backward";
+    }
+
+    if (actualDirection === "forward") {
+      return {
+        question: item.foreign,
+        answers: item.german
+      };
+    }
+
+    return {
+      question: item.german.join(" / "),
+      answers: [item.foreign]
+    };
+  }
+
+  function updateStats() {
+    $("totalStat").textContent = total;
+    $("correctStat").textContent =
+      correct + " · " + (total ? Math.round(correct / total * 100) : 0) + "%";
+    $("wrongStat").textContent =
+      wrong + " · " + (total ? Math.round(wrong / total * 100) : 0) + "%";
+
+    const seconds = Math.floor((elapsedBefore + (Date.now() - startTime)) / 1000);
+    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const rest = String(seconds % 60).padStart(2, "0");
+    $("timeStat").textContent = minutes + ":" + rest;
+  }
+
+  function showStats() {
+    updateStats();
+    $("statsPanel").classList.remove("hidden");
+  }
+
+  function shuffle(array) {
+    const copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function startSession() {
+    vocab = parseVocab($("vocabText").value);
+    updateListStatus();
+
+    if (!vocab.length) {
+      alert("Bitte zuerst Vokabeln einfügen oder importieren.");
+      return;
+    }
+
+    saveText();
+
+    mode = $("mode").value;
+    direction = $("direction").value;
+    maxAttempts = Number($("attempts").value);
+
+    queue = shuffle(vocab);
+    total = 0;
+    correct = 0;
+    wrong = 0;
+    elapsedBefore = 0;
+    startTime = Date.now();
+
+    $("setupPanel").classList.add("hidden");
+    $("endPanel").classList.add("hidden");
+    $("statsPanel").classList.remove("hidden");
+    $("learningPanel").classList.remove("hidden");
+
+    $("typingArea").classList.toggle("hidden", mode !== "typing");
+    $("cardsArea").classList.toggle("hidden", mode !== "cards");
+
+    clearInterval(timerHandle);
+    timerHandle = setInterval(updateStats, 1000);
+
+    showNext();
+  }
+
+  function showNext() {
+    if (!queue.length) {
+      finishSession();
+      return;
+    }
+
+    current = queue.shift();
+    currentAttempts = 0;
+    checked = false;
+
+    const prompt = getPrompt(current);
+
+    $("progressText").textContent =
+      "Noch " + (queue.length + 1) + " Vokabel(n)";
+    $("progressBar").style.width =
+      ((vocab.length - queue.length) / vocab.length * 100) + "%";
+
+    if (mode === "typing") {
+      $("questionWord").textContent = prompt.question;
+      $("directionText").textContent =
+        direction === "backward" ? "Übersetze in die Fremdsprache" :
+        direction === "random" ? "Übersetze in die andere Sprache" :
+        "Übersetze ins Deutsche";
+
+      $("answerInput").value = "";
+      $("answerInput").disabled = false;
+      $("feedback").className = "hidden";
+      $("feedback").textContent = "";
+      $("checkBtn").classList.remove("hidden");
+      $("nextBtn").classList.add("hidden");
+      $("keyboardHint").textContent = "Enter = Antwort prüfen";
+
+      // Fokus nach dem Anzeigen der neuen Vokabel
+      $("answerInput").focus();
+    } else {
+      cardFlipped = false;
+      $("cardWord").textContent = prompt.question;
+      $("cardHint").textContent = "Tippe auf die Karte, um die Lösung zu sehen.";
+      $("flipBtn").textContent = "Lösung anzeigen";
+      $("cardDecision").classList.add("hidden");
+    }
+
+    updateStats();
+  }
+
+  function normalize(text) {
+    return text.trim().toLocaleLowerCase("de-DE")
+      .replace(/[.,!?;:]/g, "")
+      .replace(/\s+/g, " ");
+  }
+
+  function isCorrect(input, answers) {
+    const value = normalize(input);
+    return answers.some(answer => normalize(answer) === value);
+  }
+
+  function checkAnswer() {
+    if (checked) {
+      advance();
+      return;
+    }
+
+    const input = $("answerInput").value.trim();
+    if (!input) return;
+
+    currentAttempts++;
+    total++;
+
+    const prompt = getPrompt(current);
+    const good = isCorrect(input, prompt.answers);
+
+    if (good) {
+      correct++;
+      checked = true;
+      showFeedback(true, input, prompt.answers);
+      $("answerInput").disabled = true;
+      $("checkBtn").classList.add("hidden");
+      $("nextBtn").classList.remove("hidden");
+      $("keyboardHint").textContent = "Richtig! Enter = nächste Vokabel";
+      $("answerInput").blur();
+    } else {
+      wrong++;
+
+      if (currentAttempts >= maxAttempts) {
+        checked = true;
+        showFeedback(false, input, prompt.answers);
+        $("answerInput").disabled = true;
+        $("checkBtn").classList.add("hidden");
+        $("nextBtn").classList.remove("hidden");
+        $("keyboardHint").textContent = "Falsch! Enter = nächste Vokabel";
+        $("answerInput").blur();
+
+        // Falsch beantwortete Vokabeln kommen später erneut.
+        queue.push(current);
+      } else {
+        showFeedback(false, input, prompt.answers, true);
+        $("answerInput").value = "";
+        $("answerInput").focus();
+      }
+    }
+
+    updateStats();
+  }
+
+  function showFeedback(good, input, answers, retry = false) {
+    const box = $("feedback");
+    box.className = "feedback " + (good ? "correct" : "wrong");
+
+    const heading = document.createElement("strong");
+    heading.textContent = good ? "RICHTIG!" : "FALSCH!";
+
+    const detail = document.createElement("div");
+    detail.textContent = retry
+      ? "Noch ein Versuch möglich."
+      : "Richtige Lösung:";
+
+    const answer = document.createElement("div");
+    answer.className = "correct-answer";
+    answer.textContent = answers.join(" · ");
+
+    box.replaceChildren(heading, detail, answer);
+
+    if (!good) {
+      const entered = document.createElement("div");
+      entered.className = "wrong-entry";
+      entered.textContent = "Deine Eingabe: " + input;
+      box.appendChild(entered);
+    }
+
+    box.classList.remove("hidden");
+  }
+
+  function advance() {
+    showNext();
+  }
+
+  $("checkBtn").addEventListener("click", checkAnswer);
+  $("nextBtn").addEventListener("click", advance);
+
+  $("answerInput").addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (checked) advance();
+      else checkAnswer();
+    }
+  });
+
+  function flipCard() {
+    if (cardFlipped) return;
+
+    cardFlipped = true;
+    const prompt = getPrompt(current);
+    $("cardWord").textContent = prompt.answers.join(" / ");
+    $("cardHint").textContent = "Wie gut konntest du die Vokabel?";
+    $("flipBtn").classList.add("hidden");
+    $("cardDecision").classList.remove("hidden");
+  }
+
+  $("cardWord").addEventListener("click", flipCard);
+  $("flipBtn").addEventListener("click", flipCard);
+
+  function decideCard(good) {
+    if (!cardFlipped) return;
+
+    total++;
+    if (good) {
+      correct++;
+    } else {
+      wrong++;
+      queue.push(current);
+    }
+
+    updateStats();
+    showNext();
+  }
+
+  $("cardCorrect").addEventListener("click", () => decideCard(true));
+  $("cardWrong").addEventListener("click", () => decideCard(false));
+
+  function finishSession() {
+    clearInterval(timerHandle);
+    updateStats();
+
+    $("learningPanel").classList.add("hidden");
+    $("endPanel").classList.remove("hidden");
+    $("endMessage").textContent =
+      "Du hast alle Vokabeln dieser Runde bearbeitet. " +
+      correct + " richtige und " + wrong + " falsche Antworten.";
+  }
+
+  function stopSession() {
+    clearInterval(timerHandle);
+    $("learningPanel").classList.add("hidden");
+    $("statsPanel").classList.add("hidden");
+    $("endPanel").classList.add("hidden");
+    $("setupPanel").classList.remove("hidden");
+  }
+
+  $("stopBtn").addEventListener("click", stopSession);
+
+  $("restartBtn").addEventListener("click", () => {
+    $("endPanel").classList.add("hidden");
+    $("statsPanel").classList.add("hidden");
+    $("setupPanel").classList.remove("hidden");
+  });
+
+  $("startBtn").addEventListener("click", startSession);
+
+  loadSavedText();
+
+  // Offline-Unterstützung: Service Worker registrieren.
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js")
+        .catch(error => console.warn("Service Worker:", error));
+    });
+  }
+})();
 </script>
-</body></html>
+</body>
+</html>
