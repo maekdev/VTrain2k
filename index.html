@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f5fb">
+<title>Vokabelatelier</title>
+<style>
+:root{--ink:#20243a;--muted:#72778d;--paper:#f4f5fb;--card:#fff;--line:#e6e8f1;--purple:#6857d9;--purple2:#eeeaff;--green:#17845c;--red:#d83c55;--shadow:0 16px 45px #30345a12}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#e9e6ff 0,transparent 38%),var(--paper);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:15px;padding:12px 18px;font-weight:700;transition:.15s transform,.15s opacity}button:active{transform:scale(.98)}button:disabled{opacity:.4;cursor:not-allowed}
+.primary{background:var(--purple);color:white;box-shadow:0 7px 18px #6857d933}.soft{background:var(--purple2);color:var(--purple)}.plain{background:#f1f2f7;color:var(--ink)}.good{background:#e2f5ec;color:var(--green)}.bad{background:#ffeaee;color:var(--red)}
+header{max-width:1050px;margin:auto;padding:26px 22px 8px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#7768e8,#a18af4);display:grid;place-items:center;color:white;font-size:22px;box-shadow:0 8px 20px #6857d944}.brand h1{font-size:21px;line-height:1.1;margin:0}.brand small{color:var(--muted)}
+.timer{font-size:12px;color:var(--muted);background:#ffffffb8;border:1px solid var(--line);border-radius:99px;padding:6px 10px;font-variant-numeric:tabular-nums}
+main{max-width:900px;margin:18px auto 60px;padding:0 18px}.panel{background:var(--card);border:1px solid #ececf4;border-radius:25px;padding:clamp(18px,4vw,30px);box-shadow:var(--shadow);margin-bottom:17px}
+h2{font-size:23px;margin:0 0 5px;letter-spacing:-.5px}p.sub{margin:0 0 22px;color:var(--muted)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.field{display:flex;flex-direction:column;gap:7px;min-width:145px}.field label{font-size:13px;font-weight:700;color:#5f6479}.field select,.field input,.answer{border:1px solid var(--line);border-radius:14px;padding:12px 13px;background:#fbfbfe;color:var(--ink);min-width:0;width:100%;outline:none}.field select:focus,.field input:focus,.answer:focus{border-color:var(--purple);box-shadow:0 0 0 3px #6857d91a}
+.drop{border:1.5px dashed #c9c6e8;background:#faf9ff;border-radius:18px;padding:17px;text-align:center;color:var(--muted);margin:16px 0}.drop strong{color:var(--ink)}.drop input{max-width:100%;margin-top:10px}
+.fileline{font-size:13px;color:var(--muted);margin-top:8px}
+.segment{display:flex;gap:7px;background:#f3f3f9;padding:5px;border-radius:15px}.segment button{flex:1;background:transparent;color:var(--muted);padding:10px}.segment button.active{background:white;color:var(--purple);box-shadow:0 2px 8px #2221}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.actions button{flex:1}
+.hidden{display:none!important}.progress{height:7px;border-radius:9px;background:#eeeff5;overflow:hidden;margin:16px 0 7px}.progress>div{height:100%;background:linear-gradient(90deg,#7666e5,#ad8ef2);width:0;transition:width .2s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.question{font-size:clamp(28px,6vw,42px);font-weight:800;letter-spacing:-1px;text-align:center;margin:24px 0 20px;overflow-wrap:anywhere}
+.answer{font-size:19px;padding:15px 16px;text-align:center}.hint{text-align:center;color:var(--muted);font-size:13px;margin-top:9px}
+.feedback{min-height:30px;text-align:center;margin:14px 0 0;font-weight:800}.correct{color:var(--green)}.wrong{color:var(--red)}.diff{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;font-size:19px;margin-top:9px}.diff span{padding:2px 4px;border-radius:5px}.diff .miss{color:var(--red);background:#ffebef;text-decoration:underline;text-decoration-thickness:2px}.diff .extra{color:var(--red);background:#ffebef;text-decoration:line-through}.diff .ok{color:var(--green)}
+.cardstage{perspective:1000px;max-width:600px;margin:20px auto}.flashcard{min-height:245px;display:grid;place-items:center;text-align:center;padding:30px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fff,#f8f7ff);box-shadow:0 12px 35px #30345a12;cursor:pointer;user-select:none}.flashcard .word{font-size:clamp(30px,6vw,44px);font-weight:800;overflow-wrap:anywhere}.flashcard .tap{color:var(--muted);font-size:13px;margin-top:15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.stat{background:#f7f7fc;border-radius:17px;padding:17px 10px;text-align:center}.stat b{display:block;font-size:27px}.stat span{font-size:12px;color:var(--muted)}
+.promptbox{width:100%;min-height:190px;resize:vertical;border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfbfe;color:var(--ink)}
+.note{font-size:13px;color:var(--muted)}footer{text-align:center;color:#9699a9;font-size:12px;padding:12px}
+@media(max-width:560px){header{padding:18px 16px 5px}main{padding:0 12px;margin-top:12px}.panel{border-radius:21px;padding:18px}.row{gap:10px}.actions button{min-width:100%}.stats{gap:7px}.stat{padding:13px 5px}}
+@media(orientation:landscape) and (max-height:560px){header{padding-top:10px}main{margin-top:8px}.panel{padding:16px}.question{margin:12px 0}.flashcard{min-height:170px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">✦</div><div><h1>Vokabelatelier</h1><small>Wörter lernen. Schritt für Schritt.</small></div></div><div id="timer" class="timer hidden">00:00</div></header>
+<main>
+<section id="setup" class="panel">
+<h2>Deine nächste Lernrunde</h2><p class="sub">Lade eine Vokabeldatei und wähle deinen Lernmodus.</p>
+<div class="drop"><strong>Vokabeldatei öffnen</strong><br><span class="note">Eine einfache .txt-Datei im unten beschriebenen Format</span><br><input id="file" type="file" accept=".txt,text/plain"><div id="filename" class="fileline">Noch keine Datei geladen</div></div>
+<div class="row">
+<div class="field"><label>Lernsprache</label><select id="language"><option value="Englisch">Englisch</option><option value="Latein">Latein</option></select></div>
+<div class="field"><label>Abfragerichtung</label><select id="direction"><option value="foreign">Fremdsprache → Deutsch</option><option value="german">Deutsch → Fremdsprache</option></select></div>
+</div>
+<div class="field" style="margin-top:14px"><label>Lernmodus</label><div class="segment"><button id="typeMode" class="active" type="button">⌨️ Eintippen</button><button id="cardMode" type="button">▣ Karteikarten</button></div></div>
+<div id="triesField" class="field" style="margin-top:14px"><label>Versuche pro Vokabel (bevor sie ans Ende kommt)</label><select id="tries"><option value="1">1 Versuch</option><option value="2">2 Versuche</option><option value="3">3 Versuche</option></select></div>
+<div class="actions"><button id="start" class="primary" disabled>Lernrunde starten →</button></div>
+<p class="note" style="margin-top:14px">Die Datei wird nur lokal in deinem Browser gelesen. Sie wird nicht hochgeladen.</p>
+</section>
+<section id="learn" class="panel hidden">
+<div class="meta"><span id="counter">Vokabel 1</span><span id="remaining">Noch 0 offen</span></div><div class="progress"><div id="bar"></div></div>
+<div id="typingArea">
+<div id="question" class="question"></div>
+<input id="answer" class="answer" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Übersetzung eingeben …">
+<div class="hint" id="tryHint">Enter = prüfen</div><div id="feedback" class="feedback"></div><div id="diff" class="diff"></div>
+<div class="actions"><button id="check" class="primary">Prüfen ↵</button><button id="next" class="soft hidden">Weiter</button></div>
+</div>
+<div id="cardArea" class="hidden">
+<div class="cardstage"><div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Karte umdrehen"><div><div id="cardWord" class="word"></div><div id="cardTap" class="tap">Antippen, um die Lösung zu sehen</div></div></div></div>
+<div class="actions"><button id="flip" class="soft">Umdrehen</button><button id="cardWrong" class="bad hidden">Falsch – später wiederholen</button><button id="cardRight" class="good hidden">Richtig – erledigt</button></div>
+</div>
+</section>
+<section id="done" class="panel hidden">
+<h2>Runde geschafft! 🎉</h2><p class="sub">Alle Vokabeln wurden richtig gelöst bzw. als gewusst markiert.</p>
+<div class="stats"><div class="stat"><b id="statTotal">0</b><span>Abfragen / Karten</span></div><div class="stat"><b id="statRight">0</b><span>Richtig</span></div><div class="stat"><b id="statWrong">0</b><span>Falsch</span></div></div>
+<p id="percent" class="hint"></p><p id="elapsed" class="hint"></p>
+<div class="actions"><button id="again" class="primary">Noch eine Runde</button><button id="home" class="plain">Zurück zur Auswahl</button></div>
+</section>
+<section class="panel">
+<h2>LLM-Prompt für neue Vokabeldateien</h2><p class="sub">Kopiere diesen Prompt in ein LLM und füge ein Foto deiner Buchseite hinzu.</p>
+<textarea id="prompt" class="promptbox" readonly></textarea><div class="actions"><button id="copyPrompt" class="soft">Prompt kopieren</button></div>
+<p class="note">Tipp: Bitte das LLM, Unsicherheiten zu markieren und keine unleserlichen Wörter zu erraten.</p>
+</section>
+<section class="panel">
+<h2>Dateiformat</h2><p class="sub">Eine Zeile pro Vokabelpaar. UTF-8, Endung .txt.</p>
+<pre style="white-space:pre-wrap;background:#f7f7fc;padding:14px;border-radius:13px;font-size:13px"># Sprache: Englisch
+# Titel: Unit 3 – At school
+apple | Apfel
+to borrow; borrow | ausleihen; borgen
+beautiful | schön; hübsch</pre>
+<p class="note">Links steht immer die Fremdsprache, rechts Deutsch. Trenne beide Seiten mit <b>|</b>. Mehrere akzeptierte Lösungen innerhalb einer Seite mit <b>;</b> trennen. Leerzeilen und Zeilen, die mit # beginnen, werden ignoriert. Umlaute und Sonderzeichen sind erlaubt.</p>
+</section>
+</main>
+<footer>Vokabelatelier · Läuft vollständig lokal im Browser</footer>
+<script>
+const $=id=>document.getElementById(id);
+const promptText=`Du bist ein sorgfältiger Assistent zur Erstellung von Vokabel-Lerndateien für Deutschsprachige, die Englisch oder Latein lernen.\n\nAnalysiere das beigefügte Foto einer Buchseite. Lies alle erkennbaren Vokabeln und ihre deutschen Bedeutungen aus. Erstelle daraus eine UTF-8-Textdatei im folgenden Format:\n\n# Sprache: Englisch ODER Latein\n# Titel: kurzer Titel / Lektion\nFremdsprachliches Wort | deutsche Bedeutung\n\nRegeln:\n- Genau ein Vokabelpaar pro Zeile.\n- Fremdsprache steht links, Deutsch rechts; als Trennzeichen ausschließlich ein senkrechter Strich |.\n- Mehrere gebräuchliche Bedeutungen oder akzeptierte Übersetzungen auf derselben Seite mit Semikolon trennen.\n- Verben in der im Buch angegebenen Form übernehmen; bei Bedarf die Grundform ergänzen, aber nichts erfinden.\n- Keine Beispielsätze, Erklärungen, Nummerierungen oder Tabellen außerhalb des Dateiformats.\n- Doppelte Einträge entfernen, Schreibweise und Akzente sorgfältig erhalten.\n- Unleserliche oder mehrdeutige Einträge NICHT erraten. Am Ende nach einem Kommentarblock (# Prüfen: ...) mit den fraglichen Stellen und deiner Unsicherheit fragen.\n- Wenn das Foto mehrere Spalten enthält, alle Spalten vollständig und in Leserichtung erfassen.\n\nGib zuerst den Inhalt der fertigen .txt-Datei in einem einzigen Codeblock aus. Nenne danach kurz die Anzahl der extrahierten Einträge.`;
+$('prompt').value=promptText;
+let entries=[],mode='typing',queue=[],current=null,tries=1,attempts=0,wrong=0,right=0,started=0,elapsed=0,remainingTries=0,locked=false,flipped=false,sessionDirection='foreign',sourceName='';
+function parseFile(text){let rows=[];for(const raw of text.replace(/^\uFEFF/,'').split(/\r?\n/)){let line=raw.trim();if(!line||line.startsWith('#'))continue;let ix=line.indexOf('|');if(ix<0)continue;let left=line.slice(0,ix).trim(),right=line.slice(ix+1).trim();if(left&&right)rows.push({foreign:left.split(';').map(x=>x.trim()).filter(Boolean),german:right.split(';').map(x=>x.trim()).filter(Boolean)});}return rows;}
+$('file').addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let text=await f.text();entries=parseFile(text);sourceName=f.name;$('filename').textContent=entries.length?`${f.name} · ${entries.length} Vokabeln`:`${f.name} · Keine gültigen Zeilen gefunden`;$('start').disabled=!entries.length;}catch(err){$('filename').textContent='Datei konnte nicht gelesen werden.';$('start').disabled=true;}});
+$('typeMode').onclick=()=>setMode('typing');$('cardMode').onclick=()=>setMode('cards');
+function setMode(m){mode=m;$('typeMode').classList.toggle('active',m==='typing');$('cardMode').classList.toggle('active',m==='cards');$('triesField').classList.toggle('hidden',m==='cards');}
+$('start').onclick=()=>startRound();
+function startRound(){if(!entries.length)return;tries=mode==='typing'?Number($('tries').value):1;sessionDirection=$('direction').value;queue=entries.map((_,i)=>i);for(let i=queue.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}attempts=wrong=right=0;started=Date.now();elapsed=0;$('setup').classList.add('hidden');$('done').classList.add('hidden');$('learn').classList.remove('hidden');$('timer').classList.remove('hidden');$('typingArea').classList.toggle('hidden',mode!=='typing');$('cardArea').classList.toggle('hidden',mode!=='cards');render();}
+function render(){if(!queue.length){finish();return;}current=queue[0];remainingTries=tries;locked=false;flipped=false;$('counter').textContent=`Vokabel ${entries.length-queue.length+1} · ${entries.length} insgesamt`;$('remaining').textContent=`Noch ${queue.length} offen`;$('bar').style.width=((entries.length-queue.length)/entries.length*100)+'%';let e=entries[current];$('question').textContent=(sessionDirection==='foreign'?e.foreign:e.german).join(' / ');$('answer').value='';$('answer').disabled=false;$('feedback').textContent='';$('feedback').className='feedback';$('diff').innerHTML='';$('tryHint').textContent=`Noch ${remainingTries} ${remainingTries===1?'Versuch':'Versuche'} · Enter = prüfen`;$('check').classList.remove('hidden');$('next').classList.add('hidden');$('next').textContent='Weiter';$('cardWord').textContent=(sessionDirection==='foreign'?e.foreign:e.german).join(' / ');$('cardTap').textContent='Antippen, um die Lösung zu sehen';$('cardRight').classList.add('hidden');$('cardWrong').classList.add('hidden');$('flip').classList.remove('hidden');}
+function norm(s){return s.toLocaleLowerCase('de').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.,!?;:()[\]{}"']/g,' ').replace(/\s+/g,' ').trim();}
+function expected(){let e=entries[current];return sessionDirection==='foreign'?e.german:e.foreign;}
+function userTokens(s){return norm(s).split(' ').filter(Boolean)}
+function bestExpected(user,options){let u=norm(user);return options.slice().sort((a,b)=>distance(u,norm(a))-distance(u,norm(b)))[0]||''}
+function distance(a,b){let d=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=d[0];d[0]=i;for(let j=1;j<=b.length;j++){let old=d[j];d[j]=Math.min(d[j]+1,d[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old;}}return d[b.length]}
+function showDiff(user,correct){let u=userTokens(user),c=userTokens(correct),n=Math.max(u.length,c.length),html='';for(let i=0;i<n;i++){let a=u[i],b=c[i];if(a===undefined)html+=`<span class="miss">${esc(b)}</span>`;else if(b===undefined)html+=`<span class="extra">${esc(a)}</span>`;else if(a===b)html+=`<span class="ok">${esc(b)}</span>`;else html+=`<span class="miss">${esc(b)}</span><span class="extra">${esc(a)}</span>`;}$('diff').innerHTML=html;}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function check(){if(locked||!queue.length)return;let user=$('answer').value.trim();if(!user)return;attempts++;let opts=expected(),match=opts.some(x=>norm(x)===norm(user));if(match){right++;locked=true;$('feedback').textContent='RICHTIG';$('feedback').className='feedback correct';$('answer').disabled=true;$('check').classList.add('hidden');$('next').classList.remove('hidden');$('diff').innerHTML='';}else{wrong++;remainingTries--;$('feedback').textContent='FALSCH';$('feedback').className='feedback wrong';let best=bestExpected(user,opts);showDiff(user,best);if(remainingTries>0){$('tryHint').textContent=`Noch ${remainingTries} ${remainingTries===1?'Versuch':'Versuche'} – versuche es erneut.`;$('answer').select();}else{locked=true;$('answer').disabled=true;$('check').classList.add('hidden');$('next').classList.remove('hidden');$('next').textContent='Später erneut versuchen';}}updateTimer();}
+function nextTyping(){if(!locked)return;let wasCorrect=$('feedback').classList.contains('correct');if(wasCorrect)queue.shift();else{let item=queue.shift();queue.push(item);} $('next').textContent='Weiter';render();}
+$('check').onclick=check;$('next').onclick=nextTyping;$('answer').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!$('check').classList.contains('hidden'))check();else if(!$('next').classList.contains('hidden'))nextTyping();}});
+function flip(){if(flipped)return;flipped=true;let e=entries[current];$('cardWord').textContent=(sessionDirection==='foreign'?e.german:e.foreign).join(' / ');$('cardTap').textContent='Lösung';$('flip').classList.add('hidden');$('cardRight').classList.remove('hidden');$('cardWrong').classList.remove('hidden');}
+$('flashcard').onclick=flip;$('flashcard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}};$('flip').onclick=flip;
+$('cardRight').onclick=()=>{attempts++;right++;queue.shift();render();updateTimer();};$('cardWrong').onclick=()=>{attempts++;wrong++;let x=queue.shift();queue.push(x);render();updateTimer();};
+function updateTimer(){let s=Math.floor((Date.now()-started)/1000);$('timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function finish(){elapsed=Math.floor((Date.now()-started)/1000);$('learn').classList.add('hidden');$('done').classList.remove('hidden');$('timer').classList.add('hidden');$('statTotal').textContent=attempts;$('statRight').textContent=right;$('statWrong').textContent=wrong;let total=right+wrong;$('percent').textContent=`Richtig: ${total?Math.round(right/total*100):0}% · Falsch: ${total?Math.round(wrong/total*100):0}%`; $('elapsed').textContent=`Benötigte Zeit: ${Math.floor(elapsed/60)} min ${elapsed%60} s`;}
+$('again').onclick=()=>startRound();$('home').onclick=()=>{$('done').classList.add('hidden');$('setup').classList.remove('hidden');};
+$('copyPrompt').onclick=async()=>{try{await navigator.clipboard.writeText(promptText);$('copyPrompt').textContent='Kopiert ✓';setTimeout(()=>$('copyPrompt').textContent='Prompt kopieren',1800);}catch(e){$('prompt').select();document.execCommand('copy');$('copyPrompt').textContent='Kopiert ✓';}};
+</script>
+</body></html>
