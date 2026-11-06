@@ -1,16 +1,17 @@
 {
-  "name": "VTrain2k",
-  "short_name": "VokabelTrainer",
+  "name": "VTrain2k – Vokabeltrainer",
+  "short_name": "VTrain2k",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#faf6ef",
-  "theme_color": "#faf6ef",
+  "background_color": "#f2f6fa",
+  "theme_color": "#173b5e",
   "icons": [
     {
-      "src": "./apple-touch-icon.png",
+      "src": "apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
