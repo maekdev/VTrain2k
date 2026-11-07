@@ -27,242 +27,458 @@
   --muted:#647789;
   --border:#d5e0e9;
 }
+
 * {box-sizing:border-box}
+
 body {
-  margin:0;background:var(--bg);color:var(--text);
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
   font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
+
 header {
-  background:var(--navy);color:white;text-align:center;padding:20px;
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:20px;
 }
+
 header h1 {margin:0;font-size:27px}
 header small {display:block;margin-top:5px;opacity:.8}
 
 .header-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 9px 18px;
-  margin-top: 13px;
-  font-size: 13px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  gap:9px 18px;
+  margin-top:13px;
+  font-size:13px;
 }
 
-.header-links span {
-  opacity: .8;
-}
+.header-links span {opacity:.8}
 
 .header-links a {
-  color: #ffffff;
-  text-decoration: none;
-  border-bottom: 1px solid #ffffff88;
-  padding-bottom: 2px;
-  transition: opacity .2s;
+  color:white;
+  text-decoration:none;
+  border-bottom:1px solid #ffffff88;
+  padding-bottom:2px;
+  transition:opacity .2s;
 }
 
-.header-links a:hover {
-  opacity: .7;
+.header-links a:hover {opacity:.7}
+
+main {
+  width:min(950px,100%);
+  margin:22px auto;
+  padding:0 14px 35px;
 }
 
-@media (max-width: 480px) {
-  .header-links {
-    gap: 9px 13px;
-    font-size: 12px;
-  }
-}
-
-main {width:min(950px,100%);margin:22px auto;padding:0 14px 35px}
 .panel {
-  background:white;border:1px solid var(--border);
-  border-radius:16px;padding:20px;margin-bottom:16px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:16px;
   box-shadow:0 3px 12px #173b5e0b;
 }
-h2 {margin:0 0 14px;color:var(--navy);font-size:20px}
-h3 {color:var(--navy);margin:18px 0 8px}
-label {display:block;font-weight:650;margin:13px 0 6px}
+
+h2 {
+  margin:0 0 14px;
+  color:var(--navy);
+  font-size:20px;
+}
+
+h3 {
+  color:var(--navy);
+  margin:18px 0 8px;
+}
+
+label {
+  display:block;
+  font-weight:650;
+  margin:13px 0 6px;
+}
+
 textarea,input {
-  width:100%;border:1px solid var(--border);border-radius:10px;
-  padding:12px;font:inherit;background:white;color:var(--text);
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  font:inherit;
+  background:white;
+  color:var(--text);
 }
-textarea {min-height:155px;resize:vertical;line-height:1.5}
-input:focus,textarea:focus {
-  outline:3px solid #2878b933;border-color:var(--blue)
+
+textarea {
+  min-height:155px;
+  resize:vertical;
+  line-height:1.5;
 }
+
+input:focus,textarea:focus,select:focus {
+  outline:3px solid #2878b933;
+  border-color:var(--blue);
+}
+
 button {
-  border:0;border-radius:10px;padding:12px 17px;
-  font:inherit;font-weight:700;cursor:pointer;
-  background:var(--blue);color:white;
+  border:0;
+  border-radius:10px;
+  padding:12px 17px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+  background:var(--blue);
+  color:white;
 }
-button:disabled {opacity:.5;cursor:not-allowed}
+
+button:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
 button.secondary {
-  background:var(--light);color:var(--navy);
+  background:var(--light);
+  color:var(--navy);
   border:1px solid var(--border);
 }
+
 button.selected {
-  background:var(--navy);color:white;
+  background:var(--navy);
+  color:white;
   border:2px solid var(--blue);
   box-shadow:0 0 0 3px #2878b922;
 }
-.button-row {display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
-.hint {color:var(--muted);font-size:13px;line-height:1.5;margin-top:9px}
+
+.button-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:13px;
+}
+
+.hint {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  margin-top:9px;
+}
+
 .hidden {display:none!important}
-.mode-options {display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.mode-options {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
 .mode-button {
-  padding:18px 12px;background:var(--light);
-  border:2px solid var(--border);color:var(--navy);
-  border-radius:13px;font-size:17px;
+  padding:18px 12px;
+  background:var(--light);
+  border:2px solid var(--border);
+  color:var(--navy);
+  border-radius:13px;
+  font-size:17px;
 }
-.mode-button.selected {background:var(--navy);color:white}
-.settings-grid {display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.mode-button.selected {
+  background:var(--navy);
+  color:white;
+}
+
+.settings-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
 select {
-  width:100%;padding:12px;border:1px solid var(--border);
-  border-radius:10px;background:white;font:inherit;
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+  font:inherit;
 }
-.history-list {display:grid;gap:8px;margin-top:10px}
+
+.history-list {
+  display:grid;
+  gap:8px;
+  margin-top:10px;
+}
+
 .history-item {
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;text-align:left;background:var(--light);
-  color:var(--navy);border:1px solid var(--border);
-  width:100%;padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  text-align:left;
+  background:var(--light);
+  color:var(--navy);
+  border:1px solid var(--border);
+  width:100%;
+  padding:12px;
 }
+
 .history-item.active {border:2px solid var(--blue)}
-.history-item small {display:block;color:var(--muted);font-weight:400}
-.history-item .count {white-space:nowrap;font-size:12px}
-.stats-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+.history-item small {
+  display:block;
+  color:var(--muted);
+  font-weight:400;
+}
+
+.history-item .count {
+  white-space:nowrap;
+  font-size:12px;
+}
+
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
 .stat {
-  background:var(--light);border:1px solid var(--border);
-  border-radius:13px;padding:15px;text-align:center;
+  background:var(--light);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:15px;
+  text-align:center;
 }
-.stat strong {display:block;color:var(--navy);font-size:25px}
-.stat span {display:block;margin-top:5px;color:var(--muted);font-size:12px}
-.progress {height:9px;border-radius:20px;overflow:hidden;background:#e4ebf1;margin:12px 0}
-.progress div {height:100%;width:0;background:var(--blue);transition:width .2s}
-.question {text-align:center;padding:20px 8px}
+
+.stat strong {
+  display:block;
+  color:var(--navy);
+  font-size:25px;
+}
+
+.stat span {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.progress {
+  height:9px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#e4ebf1;
+  margin:12px 0;
+}
+
+.progress div {
+  height:100%;
+  width:0;
+  background:var(--blue);
+  transition:width .2s;
+}
+
+.question {
+  text-align:center;
+  padding:20px 8px;
+}
+
 .question .word {
-  font-size:clamp(28px,7vw,43px);font-weight:800;
-  color:var(--navy);overflow-wrap:anywhere;
-}
-.question .direction {color:var(--muted);margin-bottom:12px}
-#answerInput {font-size:20px;text-align:center;margin:8px 0}
-.feedback {border-radius:12px;padding:14px;margin-top:12px;line-height:1.5}
-.feedback.correct {background:var(--green-bg);color:var(--green)}
-.feedback.wrong {background:var(--red-bg);color:var(--red)}
-.feedback strong {font-size:18px}
-.comparison {
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;
-}
-.compare-box {
-  border:1px solid var(--border);border-radius:10px;
-  padding:12px;min-width:0;text-align:center;
-}
-.compare-label {font-size:12px;color:var(--muted);margin-bottom:6px}
-.compare-word {
-  font-size:clamp(19px,4vw,26px);font-weight:750;
+  font-size:clamp(28px,7vw,43px);
+  font-weight:800;
+  color:var(--navy);
   overflow-wrap:anywhere;
 }
-.bad-letter {color:var(--red);text-decoration:underline;text-decoration-thickness:2px}
-.good-letter {color:var(--green)}
-.card-word {
-  font-size:clamp(28px,7vw,42px);font-weight:800;
-  text-align:center;padding:35px 10px;color:var(--navy);
-  overflow-wrap:anywhere;cursor:pointer;
+
+.question .direction {
+  color:var(--muted);
+  margin-bottom:12px;
 }
-.chart-wrap {width:100%;overflow:hidden}
-#progressChart {width:100%;height:auto;display:block}
-.chart-legend {font-size:12px;color:var(--muted);margin-top:5px}
-footer {text-align:center;color:var(--muted);font-size:12px;padding:20px}
+
+#answerInput {
+  font-size:20px;
+  text-align:center;
+  margin:8px 0;
+}
+
+.feedback {
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px;
+  line-height:1.5;
+}
+
+.feedback.correct {
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.feedback.wrong {
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+.feedback strong {font-size:18px}
+
+.comparison {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.compare-box {
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  min-width:0;
+  text-align:center;
+}
+
+.compare-label {
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.compare-word {
+  font-size:clamp(19px,4vw,26px);
+  font-weight:750;
+  overflow-wrap:anywhere;
+}
+
+.bad-letter {
+  color:var(--red);
+  text-decoration:underline;
+  text-decoration-thickness:2px;
+}
+
+.good-letter {color:var(--green)}
+
+.card-word {
+  font-size:clamp(28px,7vw,42px);
+  font-weight:800;
+  text-align:center;
+  padding:35px 10px;
+  color:var(--navy);
+  overflow-wrap:anywhere;
+  cursor:pointer;
+}
+
+.chart-wrap {
+  width:100%;
+  overflow:hidden;
+}
+
+#progressChart {
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.chart-legend {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+footer {
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:20px;
+}
 
 /* Nummerierte Schritte */
+
 .step-heading {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  margin: 0 0 14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin:0 0 14px;
 }
 
 .step-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 34px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--navy);
-  color: white;
-  font-size: 17px;
-  font-weight: 800;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 34px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--navy);
+  color:white;
+  font-size:17px;
+  font-weight:800;
 }
 
-.step-heading h2 {
-  margin: 0;
-}
+.step-heading h2 {margin:0}
 
 /* Hilfe- und Prompt-Boxen */
+
 .info-box {
-  margin: 12px 0;
-  padding: 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--light);
+  margin:12px 0;
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--light);
 }
 
 .info-box summary {
-  color: var(--navy);
-  font-weight: 750;
-  cursor: pointer;
+  color:var(--navy);
+  font-weight:750;
+  cursor:pointer;
 }
 
 .info-content {
-  margin-top: 12px;
-  font-size: 14px;
-  line-height: 1.6;
+  margin-top:12px;
+  font-size:14px;
+  line-height:1.6;
 }
 
 .info-content ol,
 .info-content ul {
-  padding-left: 22px;
+  padding-left:22px;
 }
 
-.info-content li {
-  margin-bottom: 6px;
-}
+.info-content li {margin-bottom:6px}
 
 .prompt-text {
-  min-height: 250px;
-  margin-top: 12px;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 13px;
-  background: white;
+  min-height:300px;
+  margin-top:12px;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:13px;
+  background:white;
 }
 
 .copy-status {
-  color: var(--green);
-  font-size: 13px;
-  font-weight: 650;
-  margin-top: 9px;
+  color:var(--green);
+  font-size:13px;
+  font-weight:650;
+  margin-top:9px;
 }
+
+.copy-status.error {color:var(--red)}
 
 .prompt-intro {
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 10px 0;
+  font-size:14px;
+  line-height:1.5;
+  margin:10px 0;
 }
 
-@media(max-width:600px) {
-  .step-number {
-    flex-basis: 31px;
-    width: 31px;
-    height: 31px;
-  }
-}
-  
 @media(max-width:600px) {
   main {margin-top:12px}
   .panel {padding:16px}
   .stats-grid {grid-template-columns:1fr 1fr}
   .settings-grid {grid-template-columns:1fr}
+  .step-number {
+    flex-basis:31px;
+    width:31px;
+    height:31px;
+  }
   button {padding:12px 13px}
+  .header-links {
+    gap:9px 13px;
+    font-size:12px;
+  }
 }
 </style>
 </head>
@@ -276,65 +492,296 @@ footer {text-align:center;color:var(--muted);font-size:12px;padding:20px}
   <div class="header-links">
     <span>by Markus Ekler</span>
     <a href="https://maekdev.github.io/VTrain2k"
-       target="_blank" rel="noopener noreferrer">
-      Website
-    </a>
+       target="_blank" rel="noopener noreferrer">Website</a>
     <a href="https://github.com/maekdev/VTrain2k"
-       target="_blank" rel="noopener noreferrer">
-      Quellcode &amp; Projekt
-    </a>
+       target="_blank" rel="noopener noreferrer">Quellcode &amp; Projekt</a>
   </div>
 </header>
 
-
 <main>
 
+<!-- STARTSEITE: EINRICHTUNG -->
 
+<section class="panel" id="setupPanel">
+
+  <!-- SCHRITT 1 -->
+
+  <div class="step-heading">
+    <span class="step-number">1</span>
+    <h2>Vokabeln vorbereiten</h2>
+  </div>
+
+  <details class="info-box">
+    <summary>❔ Was ist das? – Kurze Bedienungsanleitung</summary>
+    <div class="info-content">
+      <p><strong>So funktioniert VTrain2k:</strong></p>
+      <ol>
+        <li>Gib Vokabeln direkt ein, öffne eine TXT-Datei oder nutze den KI-Prompt, um Vokabeln aus einem Foto übertragen zu lassen.</li>
+        <li>Übernimm deine Vokabelliste. Sie wird lokal im Browser gespeichert und erscheint anschließend in deiner Listenhistorie.</li>
+        <li>Starte die Abfrage. Du kannst Antworten eintippen oder Karteikarten verwenden.</li>
+      </ol>
+
+      <p><strong>Das Eingabeformat:</strong></p>
+      <p>Links steht die Fremdsprache, rechts die deutsche Übersetzung.</p>
+      <p>
+        <code>apple | Apfel</code><br>
+        <code>to borrow | ausleihen; borgen</code><br>
+        <code>beautiful | schön; hübsch</code>
+      </p>
+      <p>Alternative Übersetzungen werden mit Semikolon getrennt. Zeilen, die mit # beginnen, werden ignoriert.</p>
+    </div>
+  </details>
+
+  <label for="vocabText">Vokabeln direkt eingeben oder einfügen</label>
+  <textarea id="vocabText" spellcheck="false"
+    placeholder="apple | Apfel&#10;to learn | lernen&#10;beautiful | schön; hübsch"></textarea>
+
+  <div class="hint">
+    Format: Fremdsprache | Deutsch. Alternative Übersetzungen
+    mit Semikolon trennen.
+  </div>
+
+  <!-- KI-PROMPT -->
+
+  <details class="info-box" id="promptBox">
+    <summary>🤖 Vokabeln aus einem Foto mit KI extrahieren</summary>
+
+    <div class="info-content">
+      <p class="prompt-intro">
+        Fotografiere eine Schulbuch- oder Vokabelheftseite und lade
+        das Bild in eine KI-App deiner Wahl hoch. Kopiere anschließend
+        diesen Prompt und füge ihn dort ein.
+      </p>
+
+      <p class="prompt-intro">
+        Die KI soll die Vokabeln in Lerneinheiten mit jeweils
+        <strong>20 bis 25 Wörtern</strong> aufteilen. Eine Seite mit
+        50 Vokabeln wird beispielsweise in zwei Einheiten aufgeteilt.
+      </p>
+
+      <label for="aiPrompt">Prompt für die KI</label>
+      <textarea id="aiPrompt" class="prompt-text" readonly spellcheck="false">Du bist ein Assistent zum Übertragen von Vokabeln aus fotografierten Schulbuch- oder Vokabelheftseiten.
+
+AUFGABE:
+Lies alle erkennbaren Vokabeln aus dem hochgeladenen Bild aus. Ordne jeder fremdsprachigen Vokabel die passende deutsche Übersetzung zu.
+
+SPRACHE:
+Erkenne selbstständig, welche Fremdsprache auf der Seite verwendet wird. Trage sie in die Kopfzeile ein, zum Beispiel Englisch, Latein, Französisch oder Spanisch.
+
+AUFTEILUNG IN LERNEINHEITEN:
+1. Erstelle Lerneinheiten mit jeweils 20 bis 25 Vokabeln.
+2. Teile längere Listen automatisch auf mehrere Einheiten auf.
+3. Bei 50 Vokabeln erstellst du beispielsweise zwei Einheiten mit jeweils 25 Vokabeln.
+4. Bei weniger als 20 Vokabeln erstellst du eine einzige Einheit.
+5. Übernimm alle Vokabeln der Vorlage und lasse keine erkennbaren Einträge aus.
+6. Teile die Liste möglichst sinnvoll an einer passenden Stelle auf.
+
+AUSGABEFORMAT:
+Erstelle für jede Lerneinheit einen eigenen Textblock, der direkt als eigenständige .txt-Datei gespeichert werden kann.
+
+Verwende exakt dieses Format:
+
+# Sprache: Englisch
+# Titel: Lerneinheit 1
+
+apple | Apfel
+to borrow | ausleihen; borgen
+beautiful | schön; hübsch
+
+REGELN:
+- Links steht immer die fremdsprachige Vokabel.
+- Rechts steht die deutsche Übersetzung.
+- Mehrere passende Übersetzungen werden mit Semikolon getrennt.
+- Übernimm die Schreibweise möglichst exakt.
+- Ergänze keine Vokabeln, die nicht auf der Vorlage stehen.
+- Erfinde keine Übersetzungen, wenn eine Stelle nicht eindeutig lesbar ist.
+- Kennzeichne unsichere oder unleserliche Stellen separat außerhalb der Vokabellisten.
+- Verwende keine Tabellen und keine Nummerierung der Vokabeln.
+- Keine zusätzlichen Erklärungen innerhalb der Textblöcke.
+
+DATEIEN:
+Gib jede Lerneinheit in einem eigenen, klar abgegrenzten Textblock aus.
+Nenne die Einheiten beispielsweise:
+Vokabeln_Englisch_01.txt
+Vokabeln_Englisch_02.txt
+Vokabeln_Englisch_03.txt
+
+Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vollständigen Textblöcke getrennt aus, damit ich sie einzeln speichern kann.</textarea>
+
+      <div class="button-row">
+        <button type="button" id="copyPromptBtn">
+          📋 KI-Prompt kopieren
+        </button>
+      </div>
+
+      <div id="copyPromptStatus" class="copy-status"
+           aria-live="polite"></div>
+
+      <p class="hint">
+        Anschließend kannst du den kopierten Prompt in ChatGPT
+        oder einer anderen KI-App einfügen. Lade dort dein Foto hoch,
+        lasse die Vokabeln extrahieren und speichere die erzeugten
+        Textblöcke als TXT-Dateien.
+      </p>
+    </div>
+  </details>
+
+  <!-- SCHRITT 2 -->
+
+  <div class="step-heading" style="margin-top:24px">
+    <span class="step-number">2</span>
+    <h2>Vokabelliste laden</h2>
+  </div>
+
+  <div class="button-row">
+    <button id="loadTextBtn">Liste übernehmen</button>
+    <button class="secondary" id="importBtn">TXT-Datei öffnen &amp; laden</button>
+    <input id="fileInput" type="file" accept=".txt,text/plain" class="hidden">
+  </div>
+
+  <div class="hint" id="listStatus">
+    Noch keine Vokabeln geladen.
+  </div>
+
+  <h3>Zuletzt verwendete Listen</h3>
+  <div id="historyList" class="history-list">
+    <div class="hint">Noch keine gespeicherten Listen.</div>
+  </div>
+
+  <!-- SCHRITT 3 -->
+
+  <div class="step-heading" style="margin-top:24px">
+    <span class="step-number">3</span>
+    <h2>Vokabeln abfragen</h2>
+  </div>
+
+  <h3>Lernmodus</h3>
+
+  <div class="mode-options">
+    <button class="mode-button selected" data-mode="typing">
+      ✍️ Eingabe
+      <small style="display:block;font-weight:400">Antwort eintippen</small>
+    </button>
+
+    <button class="mode-button" data-mode="cards">
+      🗂️ Karteikarten
+      <small style="display:block;font-weight:400">Antwort aufdecken</small>
+    </button>
+  </div>
+
+  <div class="settings-grid">
+    <div>
+      <label for="direction">Abfragerichtung</label>
+      <select id="direction">
+        <option value="forward">Fremdsprache → Deutsch</option>
+        <option value="backward">Deutsch → Fremdsprache</option>
+        <option value="random">Zufällig gemischt</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="attempts">Versuche pro Vokabel</label>
+      <select id="attempts">
+        <option value="1">1 Versuch</option>
+        <option value="2">2 Versuche</option>
+        <option value="3">3 Versuche</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="button-row">
+    <button id="startBtn">Lernen starten</button>
+  </div>
+
+</section>
+
+<!-- STATISTIK -->
 
 <section class="panel hidden" id="statsPanel">
   <h2>Statistik dieser Runde</h2>
+
   <div class="stats-grid">
-    <div class="stat"><strong id="totalStat">0</strong><span>Antworten</span></div>
-    <div class="stat"><strong id="correctStat">0 · 0%</strong><span>Richtig</span></div>
-    <div class="stat"><strong id="wrongStat">0 · 0%</strong><span>Falsch</span></div>
-    <div class="stat"><strong id="timeStat">00:00</strong><span>Lernzeit</span></div>
+    <div class="stat">
+      <strong id="totalStat">0</strong>
+      <span>Antworten</span>
+    </div>
+    <div class="stat">
+      <strong id="correctStat">0 · 0%</strong>
+      <span>Richtig</span>
+    </div>
+    <div class="stat">
+      <strong id="wrongStat">0 · 0%</strong>
+      <span>Falsch</span>
+    </div>
+    <div class="stat">
+      <strong id="timeStat">00:00</strong>
+      <span>Lernzeit</span>
+    </div>
   </div>
 </section>
 
+<!-- LERNBEREICH -->
+
 <section class="panel hidden" id="learningPanel">
+
   <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
     <strong id="progressText">Vokabel 1</strong>
     <button class="secondary" id="stopBtn">Beenden</button>
   </div>
-  <div class="progress"><div id="progressBar"></div></div>
+
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
+
+  <!-- EINGABEMODUS -->
 
   <div id="typingArea">
     <div class="question">
       <div class="direction" id="directionText">Übersetze ins Deutsche</div>
       <div class="word" id="questionWord">apple</div>
     </div>
+
     <label for="answerInput">Deine Antwort</label>
-    <input id="answerInput" type="text" autocomplete="off"
-      autocapitalize="off" spellcheck="false" placeholder="Antwort eingeben …">
-    <div class="hint" id="keyboardHint">Enter = Antwort prüfen</div>
+
+    <input id="answerInput" type="text"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="Antwort eingeben …">
+
+    <div class="hint" id="keyboardHint">
+      Enter = Antwort prüfen
+    </div>
+
     <div id="feedback" class="feedback hidden"></div>
   </div>
 
+  <!-- KARTEIKARTENMODUS -->
+
   <div id="cardsArea" class="hidden">
-    <div class="question"><div class="direction">Karte antippen oder umdrehen</div></div>
+    <div class="question">
+      <div class="direction">Karte antippen oder umdrehen</div>
+    </div>
+
     <div class="card-word" id="cardWord">apple</div>
+
     <div class="hint" id="cardHint" style="text-align:center">
       Tippe auf die Karte, um die Lösung zu sehen.
     </div>
+
     <div class="button-row" style="justify-content:center">
       <button class="secondary" id="flipBtn">Lösung anzeigen</button>
     </div>
+
     <div class="button-row hidden" id="cardDecision">
       <button id="cardCorrect" style="background:var(--green)">Richtig</button>
       <button id="cardWrong" style="background:var(--red)">Falsch</button>
     </div>
   </div>
+
 </section>
+
+<!-- ABSCHLUSS -->
 
 <section class="panel hidden" id="endPanel">
   <h2>Einheit beendet</h2>
@@ -342,61 +789,42 @@ footer {text-align:center;color:var(--muted);font-size:12px;padding:20px}
   <button id="restartBtn">Zurück zur Auswahl</button>
 </section>
 
+<!-- LERNFORTSCHRITT -->
+
 <section class="panel" id="historyStatsPanel">
   <h2>Lernfortschritt der ausgewählten Liste</h2>
-  <div id="chartTitle" class="hint">Wähle eine Liste aus deiner Historie.</div>
+
+  <div id="chartTitle" class="hint">
+    Wähle eine Liste aus deiner Historie.
+  </div>
+
   <div class="chart-wrap">
-    <svg id="progressChart" viewBox="0 0 600 230" role="img"
+    <svg id="progressChart" viewBox="0 0 600 230"
+      role="img"
       aria-label="Lernfortschritt über die Durchläufe"></svg>
   </div>
+
   <div class="chart-legend">
     Linie = richtige Antworten in Prozent · Unter der Grafik stehen die Fehler je Durchlauf.
   </div>
+
   <div id="runDetails" class="hint"></div>
 </section>
 
 </main>
 
-<footer>VTrain2k · Vokabeltrainer · Läuft lokal im Browser</footer>
+<footer>
+  VTrain2k · Vokabeltrainer · Läuft lokal im Browser
+</footer>
 
 <script>
 (() => {
 "use strict";
 
+/* HILFSFUNKTION */
+
 const $ = id => document.getElementById(id);
 
-// KI-Prompt in die Zwischenablage kopieren
-$("copyPromptBtn").addEventListener("click", async () => {
-  const prompt = $("aiPrompt").value;
-  const status = $("copyPromptStatus");
-
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(prompt);
-    } else {
-      // Fallback für Browser ohne Clipboard-API
-      const textarea = $("aiPrompt");
-      textarea.focus();
-      textarea.select();
-      textarea.setSelectionRange(0, textarea.value.length);
-
-      const successful = document.execCommand("copy");
-
-      if (!successful) {
-        throw new Error("Kopieren nicht möglich");
-      }
-
-      textarea.setSelectionRange(0, 0);
-      textarea.blur();
-    }
-
-    status.textContent = "✓ Prompt wurde in die Zwischenablage kopiert!";
-  } catch (error) {
-    status.textContent =
-      "Kopieren nicht möglich. Bitte den Text manuell markieren und kopieren.";
-  }
-});
-  
 const LIBRARY_KEY = "vtrain2k-library-v2";
 
 let library = [];
@@ -411,39 +839,67 @@ let mode = "typing";
 let direction = "forward";
 let cardFlipped = false;
 let checked = false;
-let total = 0, correct = 0, wrong = 0;
+let total = 0;
+let correct = 0;
+let wrong = 0;
 let startTime = 0;
 let timerHandle = null;
 
+/* ALLGEMEINE FUNKTIONEN */
+
 function uid() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  return Date.now().toString(36) +
+    Math.random().toString(36).slice(2,8);
 }
 
 function timestamp() {
   return new Date().toLocaleString("de-DE", {
-    day:"2-digit",month:"2-digit",year:"numeric",
-    hour:"2-digit",minute:"2-digit"
+    day:"2-digit",
+    month:"2-digit",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit"
   });
 }
+
+/* VOKABELN EINLESEN */
 
 function parseVocab(text) {
   const result = [];
+
   text.split(/\r?\n/).forEach(line => {
     const s = line.trim();
+
     if (!s || s.startsWith("#")) return;
+
     const parts = s.split("|");
+
     if (parts.length < 2) return;
+
     const foreign = parts[0].trim();
-    const german = parts.slice(1).join("|").split(";")
-      .map(x => x.trim()).filter(Boolean);
-    if (foreign && german.length) result.push({foreign,german});
+
+    const german = parts.slice(1)
+      .join("|")
+      .split(";")
+      .map(x => x.trim())
+      .filter(Boolean);
+
+    if (foreign && german.length) {
+      result.push({foreign,german});
+    }
   });
+
   return result;
 }
 
+/* SPEICHER */
+
 function saveLibrary() {
   try {
-    localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
+    localStorage.setItem(
+      LIBRARY_KEY,
+      JSON.stringify(library)
+    );
   } catch(e) {
     alert("Der lokale Speicher ist voll. Bitte entferne ältere Listen.");
   }
@@ -451,23 +907,37 @@ function saveLibrary() {
 
 function loadLibrary() {
   try {
-    library = JSON.parse(localStorage.getItem(LIBRARY_KEY) || "[]");
+    library = JSON.parse(
+      localStorage.getItem(LIBRARY_KEY) || "[]"
+    );
+
     if (!Array.isArray(library)) library = [];
-  } catch(e) { library = []; }
+  } catch(e) {
+    library = [];
+  }
+
   renderHistory();
 }
 
-function saveDeck(name, text) {
+function saveDeck(name,text) {
   const parsed = parseVocab(text);
+
   if (!parsed.length) {
     alert("Keine gültigen Vokabeln gefunden.");
     return false;
   }
 
-  // Gleicher Dateiname: vorhandene Liste aktualisieren.
   let deck = library.find(d => d.name === name);
+
   if (!deck) {
-    deck = {id:uid(),name,created:timestamp(),text,runs:[]};
+    deck = {
+      id:uid(),
+      name,
+      created:timestamp(),
+      text,
+      runs:[]
+    };
+
     library.unshift(deck);
   } else {
     deck.text = text;
@@ -476,10 +946,12 @@ function saveDeck(name, text) {
 
   currentDeckId = deck.id;
   vocab = parsed;
+
   saveLibrary();
   renderHistory();
   renderChart();
   updateListStatus();
+
   return true;
 }
 
@@ -489,36 +961,52 @@ function selectedDeck() {
 
 function selectDeck(id) {
   const deck = library.find(d => d.id === id);
+
   if (!deck) return;
+
   currentDeckId = id;
   $("vocabText").value = deck.text;
   vocab = parseVocab(deck.text);
+
   updateListStatus();
   renderHistory();
   renderChart();
 }
 
+/* LISTENHISTORIE */
+
 function renderHistory() {
   const container = $("historyList");
+
   container.replaceChildren();
 
   if (!library.length) {
-    container.innerHTML = '<div class="hint">Noch keine gespeicherten Listen.</div>';
+    const hint = document.createElement("div");
+    hint.className = "hint";
+    hint.textContent = "Noch keine gespeicherten Listen.";
+    container.appendChild(hint);
     return;
   }
 
   library.forEach(deck => {
     const button = document.createElement("button");
+
     button.className = "history-item" +
       (deck.id === currentDeckId ? " active" : "");
+
     button.type = "button";
 
     const left = document.createElement("span");
+
     const title = document.createElement("strong");
     title.textContent = deck.name;
+
     const date = document.createElement("small");
-    date.textContent = deck.updated ? "Aktualisiert: " + deck.updated :
-      "Hinzugefügt: " + deck.created;
+
+    date.textContent = deck.updated
+      ? "Aktualisiert: " + deck.updated
+      : "Hinzugefügt: " + deck.created;
+
     left.append(title,date);
 
     const right = document.createElement("span");
@@ -526,7 +1014,11 @@ function renderHistory() {
     right.textContent = parseVocab(deck.text).length + " Wörter";
 
     button.append(left,right);
-    button.addEventListener("click", () => selectDeck(deck.id));
+
+    button.addEventListener("click",() => {
+      selectDeck(deck.id);
+    });
+
     container.appendChild(button);
   });
 }
@@ -537,101 +1029,226 @@ function updateListStatus() {
     : "Keine gültigen Vokabeln gefunden.";
 }
 
-function importText(text, name) {
-  $("vocabText").value = text;
-  saveDeck(name,text);
-}
+/* VOKABELN ÜBERNEHMEN */
 
-$("loadTextBtn").addEventListener("click", () => {
+$("loadTextBtn").addEventListener("click",() => {
   const name = "Eingabe " + timestamp();
-  saveDeck(name,$("vocabText").value);
+
+  if (saveDeck(name,$("vocabText").value)) {
+    $("listStatus").textContent =
+      vocab.length + " Vokabeln erfolgreich übernommen.";
+  }
 });
 
-$("importBtn").addEventListener("click", () => $("fileInput").click());
+$("importBtn").addEventListener("click",() => {
+  $("fileInput").click();
+});
 
-$("fileInput").addEventListener("change", async event => {
+$("fileInput").addEventListener("change",async event => {
   const file = event.target.files[0];
+
   if (!file) return;
+
   try {
-    importText(await file.text(),file.name);
+    const text = await file.text();
+
+    $("vocabText").value = text;
+
+    if (saveDeck(file.name,text)) {
+      $("listStatus").textContent =
+        file.name + " · " + vocab.length + " Vokabeln geladen.";
+    }
   } catch(e) {
     alert("Die Datei konnte nicht gelesen werden.");
   }
+
   event.target.value = "";
 });
 
-$("vocabText").addEventListener("input", () => {
+$("vocabText").addEventListener("input",() => {
   vocab = parseVocab($("vocabText").value);
   updateListStatus();
 });
 
+/* KI-PROMPT IN DIE ZWISCHENABLAGE KOPIEREN */
+
+$("copyPromptBtn").addEventListener("click",async () => {
+  const prompt = $("aiPrompt").value;
+  const status = $("copyPromptStatus");
+
+  status.textContent = "";
+  status.classList.remove("error");
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(prompt);
+    } else {
+      const textarea = $("aiPrompt");
+
+      textarea.focus();
+      textarea.select();
+      textarea.setSelectionRange(0,textarea.value.length);
+
+      const successful = document.execCommand("copy");
+
+      textarea.setSelectionRange(0,0);
+      textarea.blur();
+
+      if (!successful) {
+        throw new Error("Kopieren nicht möglich");
+      }
+    }
+
+    status.textContent =
+      "✓ Der KI-Prompt wurde in die Zwischenablage kopiert.";
+
+  } catch(error) {
+    status.classList.add("error");
+    status.textContent =
+      "Automatisches Kopieren nicht möglich. Bitte den Prompt im Textfeld markieren und manuell kopieren.";
+  }
+});
+
+/* LERNMODUS AUSWÄHLEN */
+
 document.querySelectorAll("[data-mode]").forEach(button => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click",() => {
     mode = button.dataset.mode;
-    document.querySelectorAll("[data-mode]").forEach(b =>
-      b.classList.toggle("selected",b === button)
-    );
+
+    document.querySelectorAll("[data-mode]").forEach(b => {
+      b.classList.toggle("selected",b === button);
+    });
   });
 });
 
+/* ABFRAGERICHTUNG */
+
 function getPrompt(item) {
   let d = direction;
-  if (d === "random") d = Math.random() < .5 ? "forward" : "backward";
+
+  if (d === "random") {
+    d = Math.random() < .5 ? "forward" : "backward";
+  }
+
   return d === "forward"
-    ? {question:item.foreign,answers:item.german}
-    : {question:item.german.join(" / "),answers:[item.foreign]};
+    ? {
+        question:item.foreign,
+        answers:item.german
+      }
+    : {
+        question:item.german.join(" / "),
+        answers:[item.foreign]
+      };
 }
 
 function shuffle(array) {
   const copy = [...array];
+
   for (let i=copy.length-1;i>0;i--) {
-    const j=Math.floor(Math.random()*(i+1));
-    [copy[i],copy[j]]=[copy[j],copy[i]];
+    const j = Math.floor(Math.random()*(i+1));
+
+    [copy[i],copy[j]] = [copy[j],copy[i]];
   }
+
   return copy;
 }
 
+/* STATISTIK */
+
 function updateStats() {
   $("totalStat").textContent = total;
-  $("correctStat").textContent =
-    correct + " · " + (total ? Math.round(correct/total*100) : 0) + "%";
-  $("wrongStat").textContent =
-    wrong + " · " + (total ? Math.round(wrong/total*100) : 0) + "%";
 
-  const seconds = Math.floor((Date.now()-startTime)/1000);
+  $("correctStat").textContent =
+    correct + " · " +
+    (total ? Math.round(correct/total*100) : 0) + "%";
+
+  $("wrongStat").textContent =
+    wrong + " · " +
+    (total ? Math.round(wrong/total*100) : 0) + "%";
+
+  const seconds = Math.floor(
+    (Date.now()-startTime)/1000
+  );
+
   $("timeStat").textContent =
-    String(Math.floor(seconds/60)).padStart(2,"0") + ":" +
+    String(Math.floor(seconds/60)).padStart(2,"0") +
+    ":" +
     String(seconds%60).padStart(2,"0");
 }
 
+/* LERNEINHEIT STARTEN */
+
 function startSession() {
-  if (!currentDeckId) {
-    // Wenn noch keine Liste gespeichert wurde, die Eingabe automatisch sichern.
-    if (!saveDeck("Eingabe " + timestamp(),$("vocabText").value)) return;
+
+  /*
+    Wichtig:
+    Wenn eine gespeicherte Liste ausgewählt wurde und der Benutzer
+    den Text anschließend bearbeitet hat, werden diese Änderungen
+    vor dem Start in derselben Liste gespeichert.
+  */
+
+  const text = $("vocabText").value;
+  const parsed = parseVocab(text);
+
+  if (!parsed.length) {
+    alert("Bitte gib zuerst Vokabeln ein oder lade eine TXT-Datei.");
+    return;
+  }
+
+  const existingDeck = selectedDeck();
+
+  if (existingDeck) {
+    if (existingDeck.text !== text) {
+      if (!saveDeck(existingDeck.name,text)) return;
+    } else {
+      vocab = parsed;
+    }
+  } else {
+    if (!saveDeck("Eingabe " + timestamp(),text)) return;
   }
 
   const deck = selectedDeck();
+
   if (!deck) return;
+
   vocab = parseVocab(deck.text);
+
   if (!vocab.length) return;
 
   maxAttempts = Number($("attempts").value);
   direction = $("direction").value;
+
   queue = shuffle(vocab);
-  total=0; correct=0; wrong=0;
-  startTime=Date.now();
+
+  total = 0;
+  correct = 0;
+  wrong = 0;
+
+  startTime = Date.now();
 
   $("setupPanel").classList.add("hidden");
   $("endPanel").classList.add("hidden");
   $("learningPanel").classList.remove("hidden");
   $("statsPanel").classList.remove("hidden");
-  $("typingArea").classList.toggle("hidden",mode!=="typing");
-  $("cardsArea").classList.toggle("hidden",mode!=="cards");
+
+  $("typingArea").classList.toggle(
+    "hidden",
+   mode !== "typing"
+  );
+
+  $("cardsArea").classList.toggle(
+    "hidden",
+   mode !== "cards"
+  );
 
   clearInterval(timerHandle);
-  timerHandle=setInterval(updateStats,1000);
+
+  timerHandle = setInterval(updateStats,1000);
+
   showNext();
 }
+
+/* NÄCHSTE VOKABEL */
 
 function showNext() {
   if (!queue.length) {
@@ -639,76 +1256,108 @@ function showNext() {
     return;
   }
 
-  current=queue.shift();
-  currentAttempts=0;
-  checked=false;
-  promptNow=getPrompt(current);
+  current = queue.shift();
+  currentAttempts = 0;
+  checked = false;
+
+  promptNow = getPrompt(current);
 
   $("progressText").textContent =
     "Noch " + (queue.length+1) + " Vokabel(n)";
+
   $("progressBar").style.width =
-    ((vocab.length-queue.length)/vocab.length*100)+"%";
+    ((vocab.length-queue.length)/vocab.length*100) + "%";
 
-  if (mode==="typing") {
-    $("questionWord").textContent=promptNow.question;
+  if (mode === "typing") {
+    $("questionWord").textContent = promptNow.question;
+
     $("directionText").textContent =
-      direction==="backward" ? "Übersetze in die Fremdsprache" :
-      direction==="random" ? "Übersetze in die andere Sprache" :
-      "Übersetze ins Deutsche";
+      direction === "backward"
+        ? "Übersetze in die Fremdsprache"
+        : direction === "random"
+          ? "Übersetze in die andere Sprache"
+          : "Übersetze ins Deutsche";
 
-    $("answerInput").value="";
-    $("answerInput").readOnly=false;
-    $("feedback").className="feedback hidden";
+    $("answerInput").value = "";
+    $("answerInput").readOnly = false;
+
+    $("feedback").className = "feedback hidden";
     $("feedback").replaceChildren();
-    $("keyboardHint").textContent="Enter = Antwort prüfen";
+
+    $("keyboardHint").textContent =
+      "Enter = Antwort prüfen";
+
     $("answerInput").focus();
+
   } else {
-    cardFlipped=false;
-    $("cardWord").textContent=promptNow.question;
-    $("cardHint").textContent="Tippe auf die Karte, um die Lösung zu sehen.";
+    cardFlipped = false;
+
+    $("cardWord").textContent = promptNow.question;
+
+    $("cardHint").textContent =
+      "Tippe auf die Karte, um die Lösung zu sehen.";
+
     $("flipBtn").classList.remove("hidden");
-    $("flipBtn").textContent="Lösung anzeigen";
+    $("flipBtn").textContent = "Lösung anzeigen";
+
     $("cardDecision").classList.add("hidden");
   }
 
   updateStats();
 }
 
+/* ANTWORTEN VERGLEICHEN */
+
 function normalize(s) {
-  return s.trim().toLocaleLowerCase("de-DE")
-    .replace(/[.,!?;:]/g,"").replace(/\s+/g," ");
+  return s.trim()
+    .toLocaleLowerCase("de-DE")
+    .replace(/[.,!?;:]/g,"")
+    .replace(/\s+/g," ");
 }
 
 function isCorrect(input,answers) {
-  return answers.some(a=>normalize(a)===normalize(input));
+  return answers.some(a =>
+    normalize(a) === normalize(input)
+  );
 }
 
-// Zeichnet richtige und eingegebene Schreibweise nebeneinander.
-// Buchstaben an abweichenden Positionen werden rot markiert.
-function renderComparison(input, answers) {
-  const target=answers[0] || "";
-  const box=document.createElement("div");
-  box.className="comparison";
+/* SCHREIBWEISE VERGLEICHEN */
+
+function renderComparison(input,answers) {
+  const target = answers[0] || "";
+  const box = document.createElement("div");
+
+  box.className = "comparison";
 
   function makeSide(label,value,isUser) {
-    const side=document.createElement("div");
-    side.className="compare-box";
-    const caption=document.createElement("div");
-    caption.className="compare-label";
-    caption.textContent=label;
-    const word=document.createElement("div");
-    word.className="compare-word";
+    const side = document.createElement("div");
+    side.className = "compare-box";
 
-    const length=Math.max(target.length,input.length);
-    for(let i=0;i<value.length;i++) {
-      const span=document.createElement("span");
-      span.textContent=value[i];
+    const caption = document.createElement("div");
+    caption.className = "compare-label";
+    caption.textContent = label;
+
+    const word = document.createElement("div");
+    word.className = "compare-word";
+
+    for (let i=0;i<value.length;i++) {
+      const span = document.createElement("span");
+
+      span.textContent = value[i];
+
       const differs = target[i] !== input[i];
-      if (differs && isUser) span.className="bad-letter";
-      else if (differs && !isUser) span.className="good-letter";
+
+      if (differs && isUser) {
+        span.className = "bad-letter";
+      } else if (differs && !isUser) {
+        span.className = "good-letter";
+      }
+
       word.appendChild(span);
     }
+
     side.append(caption,word);
+
     return side;
   }
 
@@ -716,63 +1365,105 @@ function renderComparison(input, answers) {
     makeSide("Richtige Schreibweise",target,false),
     makeSide("Deine Eingabe",input,true)
   );
+
   return box;
 }
 
+/* FEEDBACK ANZEIGEN */
+
 function showFeedback(good,input,answers,retry=false) {
-  const box=$("feedback");
-  box.className="feedback "+(good?"correct":"wrong");
+  const box = $("feedback");
 
-  const heading=document.createElement("strong");
-  heading.textContent=good?"RICHTIG!":"FALSCH!";
+  box.className = "feedback " +
+    (good ? "correct" : "wrong");
 
-  const detail=document.createElement("div");
-  detail.textContent=retry?"Noch ein Versuch möglich.":"Vergleich:";
+  const heading = document.createElement("strong");
+
+  heading.textContent = good
+    ? "RICHTIG!"
+    : "FALSCH!";
+
+  const detail = document.createElement("div");
+
+  detail.textContent = retry
+    ? "Noch ein Versuch möglich."
+    : "Vergleich:";
 
   box.replaceChildren(heading,detail);
 
-  if(!good) box.appendChild(renderComparison(input,answers));
-  else {
-    const answer=document.createElement("div");
-    answer.textContent=answers.join(" · ");
+  if (!good) {
+    box.appendChild(
+      renderComparison(input,answers)
+    );
+  } else {
+    const answer = document.createElement("div");
+
+    answer.textContent = answers.join(" · ");
+
     box.appendChild(answer);
   }
 }
 
+/* ANTWORT PRÜFEN */
+
 function checkAnswer() {
-  if(checked) {
+  if (checked) {
     showNext();
     return;
   }
 
-  const input=$("answerInput").value.trim();
-  if(!input) return;
+  const input = $("answerInput").value.trim();
+
+  if (!input) return;
 
   currentAttempts++;
   total++;
 
-  const good=isCorrect(input,promptNow.answers);
+  const good = isCorrect(input,promptNow.answers);
 
-  if(good) {
+  if (good) {
     correct++;
-    checked=true;
+    checked = true;
+
     showFeedback(true,input,promptNow.answers);
-    $("answerInput").readOnly=true;
-    $("keyboardHint").textContent="RICHTIG! Enter = nächste Vokabel";
+
+    $("answerInput").readOnly = true;
+
+    $("keyboardHint").textContent =
+      "RICHTIG! Enter = nächste Vokabel";
+
     $("answerInput").focus();
+
   } else {
     wrong++;
-    if(currentAttempts>=maxAttempts) {
-      checked=true;
+
+    if (currentAttempts >= maxAttempts) {
+      checked = true;
+
       showFeedback(false,input,promptNow.answers);
-      $("answerInput").readOnly=true;
-      $("keyboardHint").textContent="FALSCH! Enter = nächste Vokabel";
+
+      $("answerInput").readOnly = true;
+
+      $("keyboardHint").textContent =
+        "FALSCH! Enter = nächste Vokabel";
+
       queue.push(current);
+
       $("answerInput").focus();
+
     } else {
-      showFeedback(false,input,promptNow.answers,true);
-      $("answerInput").value="";
-      $("keyboardHint").textContent="Noch ein Versuch – Enter prüft erneut";
+      showFeedback(
+        false,
+        input,
+        promptNow.answers,
+        true
+      );
+
+      $("answerInput").value = "";
+
+      $("keyboardHint").textContent =
+        "Noch ein Versuch – Enter prüft erneut";
+
       $("answerInput").focus();
     }
   }
@@ -780,142 +1471,283 @@ function checkAnswer() {
   updateStats();
 }
 
-$("answerInput").addEventListener("keydown",event=>{
-  if(event.key==="Enter") {
+/* ENTER-TASTE */
+
+$("answerInput").addEventListener("keydown",event => {
+  if (event.key === "Enter") {
     event.preventDefault();
     checkAnswer();
   }
 });
 
-// Enter funktioniert auch, wenn der Fokus einmal außerhalb des Feldes liegt.
-document.addEventListener("keydown",event=>{
-  if(event.key!=="Enter" || $("learningPanel").classList.contains("hidden")) return;
-  if(mode!=="typing" || document.activeElement===$("answerInput")) return;
+/*
+  Enter funktioniert auch, wenn der Fokus einmal außerhalb
+  des Eingabefeldes liegt.
+*/
+
+document.addEventListener("keydown",event => {
+  if (event.key !== "Enter") return;
+
+  if ($("learningPanel").classList.contains("hidden")) {
+    return;
+  }
+
+  if (mode !== "typing") return;
+
+  if (document.activeElement === $("answerInput")) {
+    return;
+  }
+
   event.preventDefault();
-  if(checked) showNext();
-  else $("answerInput").focus();
+
+  if (checked) {
+    showNext();
+  } else {
+    $("answerInput").focus();
+  }
 });
 
+/* KARTEIKARTEN */
+
 function flipCard() {
-  if(cardFlipped) return;
-  cardFlipped=true;
-  $("cardWord").textContent=promptNow.answers.join(" / ");
-  $("cardHint").textContent="Wie gut konntest du die Vokabel?";
+  if (cardFlipped) return;
+
+  cardFlipped = true;
+
+  $("cardWord").textContent =
+    promptNow.answers.join(" / ");
+
+  $("cardHint").textContent =
+    "Wie gut konntest du die Vokabel?";
+
   $("flipBtn").classList.add("hidden");
+
   $("cardDecision").classList.remove("hidden");
 }
+
 $("cardWord").addEventListener("click",flipCard);
 $("flipBtn").addEventListener("click",flipCard);
 
 function decideCard(good) {
-  if(!cardFlipped) return;
+  if (!cardFlipped) return;
+
   total++;
-  if(good) correct++;
-  else {wrong++;queue.push(current);}
+
+  if (good) {
+    correct++;
+  } else {
+    wrong++;
+    queue.push(current);
+  }
+
   updateStats();
   showNext();
 }
-$("cardCorrect").addEventListener("click",()=>decideCard(true));
-$("cardWrong").addEventListener("click",()=>decideCard(false));
+
+$("cardCorrect").addEventListener("click",() => {
+  decideCard(true);
+});
+
+$("cardWrong").addEventListener("click",() => {
+  decideCard(false);
+});
+
+/* LERNEINHEIT ABSCHLIESSEN */
 
 function finishSession() {
   clearInterval(timerHandle);
+
   updateStats();
 
-  const deck=selectedDeck();
-  if(deck) {
+  const deck = selectedDeck();
+
+  if (deck) {
     deck.runs.push({
       date:timestamp(),
-      total,correct,wrong,
-      accuracy:total?Math.round(correct/total*100):0
+      total,
+      correct,
+      wrong,
+      accuracy:total
+        ? Math.round(correct/total*100)
+        : 0
     });
+
     saveLibrary();
   }
 
   $("learningPanel").classList.add("hidden");
   $("endPanel").classList.remove("hidden");
+
   $("endMessage").textContent =
-    "Durchlauf abgeschlossen: "+correct+" richtige und "+wrong+
-    " falsche Antworten. Trefferquote: "+
-    (total?Math.round(correct/total*100):0)+"%.";
+    "Durchlauf abgeschlossen: " +
+    correct + " richtige und " +
+    wrong + " falsche Antworten. Trefferquote: " +
+    (total ? Math.round(correct/total*100) : 0) +
+    "%.";
+
   renderChart();
 }
 
+/* LERNEN BEENDEN */
+
 function stopSession() {
   clearInterval(timerHandle);
+
   $("learningPanel").classList.add("hidden");
   $("statsPanel").classList.add("hidden");
   $("endPanel").classList.add("hidden");
   $("setupPanel").classList.remove("hidden");
+
+  renderHistory();
 }
 
 $("startBtn").addEventListener("click",startSession);
 $("stopBtn").addEventListener("click",stopSession);
-$("restartBtn").addEventListener("click",()=>{
+
+$("restartBtn").addEventListener("click",() => {
   $("endPanel").classList.add("hidden");
   $("statsPanel").classList.add("hidden");
   $("setupPanel").classList.remove("hidden");
+
   renderHistory();
 });
 
+/* FORTSCHRITTSDIAGRAMM */
+
 function renderChart() {
-  const svg=$("progressChart");
+  const svg = $("progressChart");
+
   svg.replaceChildren();
 
-  const deck=selectedDeck();
-  if(!deck || !deck.runs || !deck.runs.length) {
-    $("chartTitle").textContent="Noch keine abgeschlossenen Durchläufe für diese Liste.";
-    $("runDetails").textContent="";
+  const deck = selectedDeck();
+
+  if (!deck || !deck.runs || !deck.runs.length) {
+    $("chartTitle").textContent =
+      "Noch keine abgeschlossenen Durchläufe für diese Liste.";
+
+    $("runDetails").textContent = "";
+
     return;
   }
 
-  const runs=deck.runs;
-  $("chartTitle").textContent=deck.name+" · "+runs.length+" Durchlauf/Durchläufe";
+  const runs = deck.runs;
 
-  const NS="http://www.w3.org/2000/svg";
-  const make=(tag,attrs,text)=>{
-    const el=document.createElementNS(NS,tag);
-    Object.entries(attrs||{}).forEach(([k,v])=>el.setAttribute(k,v));
-    if(text!==undefined) el.textContent=text;
+  $("chartTitle").textContent =
+    deck.name + " · " +
+    runs.length + " Durchlauf/Durchläufe";
+
+  const NS = "http://www.w3.org/2000/svg";
+
+  const make = (tag,attrs,text) => {
+    const el = document.createElementNS(NS,tag);
+
+    Object.entries(attrs || {}).forEach(([k,v]) => {
+      el.setAttribute(k,v);
+    });
+
+    if (text !== undefined) {
+      el.textContent = text;
+    }
+
     svg.appendChild(el);
+
     return el;
   };
 
-  const left=45,right=580,top=18,bottom=180;
-  [0,25,50,75,100].forEach(value=>{
-    const y=bottom-(value/100)*(bottom-top);
-    make("line",{x1:left,y1:y,x2:right,y2:y,stroke:"#d5e0e9","stroke-width":1});
-    make("text",{x:36,y:y+4,"text-anchor":"end",fill:"#647789","font-size":11},value+"%");
+  const left = 45;
+  const right = 580;
+  const top = 18;
+  const bottom = 180;
+
+  [0,25,50,75,100].forEach(value => {
+    const y = bottom - (value/100)*(bottom-top);
+
+    make("line",{
+      x1:left,
+      y1:y,
+      x2:right,
+      y2:y,
+      stroke:"#d5e0e9",
+      "stroke-width":1
+    });
+
+    make("text",{
+      x:36,
+      y:y+4,
+      "text-anchor":"end",
+      fill:"#647789",
+      "font-size":11
+    },value+"%");
   });
 
-  const points=runs.map((run,i)=>{
-    const x=runs.length===1?(left+right)/2:left+i*(right-left)/(runs.length-1);
-    const y=bottom-(run.accuracy/100)*(bottom-top);
+  const points = runs.map((run,i) => {
+    const x = runs.length === 1
+      ? (left+right)/2
+      : left+i*(right-left)/(runs.length-1);
+
+    const y = bottom-(run.accuracy/100)*(bottom-top);
+
     return {x,y,run,i};
   });
 
   make("polyline",{
-    points:points.map(p=>p.x+","+p.y).join(" "),
-    fill:"none",stroke:"#2878b9","stroke-width":3,
-    "stroke-linejoin":"round","stroke-linecap":"round"
+    points:points.map(p => p.x+","+p.y).join(" "),
+    fill:"none",
+    stroke:"#2878b9",
+    "stroke-width":3,
+    "stroke-linejoin":"round",
+    "stroke-linecap":"round"
   });
 
-  points.forEach(p=>{
-    make("circle",{cx:p.x,cy:p.y,r:5,fill:"#2878b9"});
-    make("text",{x:p.x,y:p.y-10,"text-anchor":"middle",fill:"#173b5e","font-size":11,"font-weight":"bold"},p.run.accuracy+"%");
-    make("text",{x:p.x,y:bottom+20,"text-anchor":"middle",fill:"#647789","font-size":11},String(p.i+1));
+  points.forEach(p => {
+    make("circle",{
+      cx:p.x,
+      cy:p.y,
+      r:5,
+      fill:"#2878b9"
+    });
+
+    make("text",{
+      x:p.x,
+      y:p.y-10,
+      "text-anchor":"middle",
+      fill:"#173b5e",
+      "font-size":11,
+      "font-weight":"bold"
+    },p.run.accuracy+"%");
+
+    make("text",{
+      x:p.x,
+      y:bottom+20,
+      "text-anchor":"middle",
+      fill:"#647789",
+      "font-size":11
+    },String(p.i+1));
   });
 
-  make("text",{x:310,y:220,"text-anchor":"middle",fill:"#647789","font-size":12},"Durchlauf");
+  make("text",{
+    x:310,
+    y:220,
+    "text-anchor":"middle",
+    fill:"#647789",
+    "font-size":12
+  },"Durchlauf");
 
-  $("runDetails").textContent=runs.map((r,i)=>
-    "Durchlauf "+(i+1)+": "+r.wrong+" Fehler · "+r.accuracy+"% richtig · "+r.date
+  $("runDetails").textContent = runs.map((r,i) =>
+    "Durchlauf " + (i+1) +
+    ": " + r.wrong + " Fehler · " +
+    r.accuracy + "% richtig · " +
+    r.date
   ).join("  |  ");
 }
 
+/* INITIALISIERUNG */
+
 loadLibrary();
+renderChart();
 
 })();
 </script>
+
 </body>
 </html>
