@@ -333,6 +333,16 @@ select {
   text-align:center;
 }
 
+/* Richtige Schreibweise bleibt immer schwarz */
+.compare-box.correct-answer .compare-word {
+  color:#111;
+}
+
+/* Farben ausschließlich in der Benutzereingabe */
+.compare-box.user-answer .compare-word {
+  color:#111;
+}
+
 .compare-label {
   font-size:12px;
   color:var(--muted);
@@ -346,12 +356,14 @@ select {
 }
 
 .bad-letter {
-  color:var(--red);
+  color:var(--red)!important;
   text-decoration:underline;
   text-decoration-thickness:2px;
 }
 
-.good-letter {color:var(--green)}
+.good-letter {
+  color:var(--green)!important;
+}
 
 .card-word {
   font-size:clamp(28px,7vw,42px);
@@ -387,8 +399,6 @@ footer {
   padding:20px;
 }
 
-/* Nummerierte Schritte */
-
 .step-heading {
   display:flex;
   align-items:center;
@@ -411,8 +421,6 @@ footer {
 }
 
 .step-heading h2 {margin:0}
-
-/* Hilfe- und Prompt-Boxen */
 
 .info-box {
   margin:12px 0;
@@ -500,11 +508,7 @@ footer {
 
 <main>
 
-<!-- STARTSEITE: EINRICHTUNG -->
-
 <section class="panel" id="setupPanel">
-
-  <!-- SCHRITT 1 -->
 
   <div class="step-heading">
     <span class="step-number">1</span>
@@ -518,6 +522,7 @@ footer {
       <ol>
         <li>Gib Vokabeln direkt ein, öffne eine TXT-Datei oder nutze den KI-Prompt, um Vokabeln aus einem Foto übertragen zu lassen.</li>
         <li>Übernimm deine Vokabelliste. Sie wird lokal im Browser gespeichert und erscheint anschließend in deiner Listenhistorie.</li>
+        <li>Du kannst die Liste jederzeit im Textfenster bearbeiten und erneut übernehmen.</li>
         <li>Starte die Abfrage. Du kannst Antworten eintippen oder Karteikarten verwenden.</li>
       </ol>
 
@@ -541,8 +546,6 @@ footer {
     mit Semikolon trennen.
   </div>
 
-  <!-- KI-PROMPT -->
-
   <details class="info-box" id="promptBox">
     <summary>🤖 Vokabeln aus einem Foto mit KI extrahieren</summary>
 
@@ -555,8 +558,7 @@ footer {
 
       <p class="prompt-intro">
         Die KI soll die Vokabeln in Lerneinheiten mit jeweils
-        <strong>20 bis 25 Wörtern</strong> aufteilen. Eine Seite mit
-        50 Vokabeln wird beispielsweise in zwei Einheiten aufgeteilt.
+        <strong>20 bis 25 Wörtern</strong> aufteilen.
       </p>
 
       <label for="aiPrompt">Prompt für die KI</label>
@@ -619,22 +621,19 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
 
       <p class="hint">
         Anschließend kannst du den kopierten Prompt in ChatGPT
-        oder einer anderen KI-App einfügen. Lade dort dein Foto hoch,
-        lasse die Vokabeln extrahieren und speichere die erzeugten
-        Textblöcke als TXT-Dateien.
+        oder einer anderen KI-App einfügen.
       </p>
     </div>
   </details>
 
-  <!-- SCHRITT 2 -->
-
   <div class="step-heading" style="margin-top:24px">
     <span class="step-number">2</span>
-    <h2>Vokabelliste laden</h2>
+    <h2>Vokabelliste laden und speichern</h2>
   </div>
 
   <div class="button-row">
     <button id="loadTextBtn">Liste übernehmen</button>
+    <button class="secondary" id="downloadTextBtn">⬇ Als TXT speichern</button>
     <button class="secondary" id="importBtn">TXT-Datei öffnen &amp; laden</button>
     <input id="fileInput" type="file" accept=".txt,text/plain" class="hidden">
   </div>
@@ -643,12 +642,15 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
     Noch keine Vokabeln geladen.
   </div>
 
+  <div class="hint">
+    Du kannst den Text jederzeit bearbeiten. Beim Übernehmen wird
+    die aktuell ausgewählte Liste aktualisiert.
+  </div>
+
   <h3>Zuletzt verwendete Listen</h3>
   <div id="historyList" class="history-list">
     <div class="hint">Noch keine gespeicherten Listen.</div>
   </div>
-
-  <!-- SCHRITT 3 -->
 
   <div class="step-heading" style="margin-top:24px">
     <span class="step-number">3</span>
@@ -674,7 +676,7 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
       <label for="direction">Abfragerichtung</label>
       <select id="direction">
         <option value="forward">Fremdsprache → Deutsch</option>
-        <option value="backward">Deutsch → Fremdsprache</option>
+        <option value="backward" selected>Deutsch → Fremdsprache</option>
         <option value="random">Zufällig gemischt</option>
       </select>
     </div>
@@ -694,8 +696,6 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
   </div>
 
 </section>
-
-<!-- STATISTIK -->
 
 <section class="panel hidden" id="statsPanel">
   <h2>Statistik dieser Runde</h2>
@@ -720,8 +720,6 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
   </div>
 </section>
 
-<!-- LERNBEREICH -->
-
 <section class="panel hidden" id="learningPanel">
 
   <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
@@ -733,12 +731,10 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
     <div id="progressBar"></div>
   </div>
 
-  <!-- EINGABEMODUS -->
-
   <div id="typingArea">
     <div class="question">
-      <div class="direction" id="directionText">Übersetze ins Deutsche</div>
-      <div class="word" id="questionWord">apple</div>
+      <div class="direction" id="directionText">Übersetze in die Fremdsprache</div>
+      <div class="word" id="questionWord">Apfel</div>
     </div>
 
     <label for="answerInput">Deine Antwort</label>
@@ -756,14 +752,12 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
     <div id="feedback" class="feedback hidden"></div>
   </div>
 
-  <!-- KARTEIKARTENMODUS -->
-
   <div id="cardsArea" class="hidden">
     <div class="question">
       <div class="direction">Karte antippen oder umdrehen</div>
     </div>
 
-    <div class="card-word" id="cardWord">apple</div>
+    <div class="card-word" id="cardWord">Apfel</div>
 
     <div class="hint" id="cardHint" style="text-align:center">
       Tippe auf die Karte, um die Lösung zu sehen.
@@ -781,15 +775,11 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
 
 </section>
 
-<!-- ABSCHLUSS -->
-
 <section class="panel hidden" id="endPanel">
   <h2>Einheit beendet</h2>
   <p id="endMessage"></p>
   <button id="restartBtn">Zurück zur Auswahl</button>
 </section>
-
-<!-- LERNFORTSCHRITT -->
 
 <section class="panel" id="historyStatsPanel">
   <h2>Lernfortschritt der ausgewählten Liste</h2>
@@ -821,7 +811,7 @@ Wichtig: Jede Einheit muss unabhängig als TXT-Datei verwendbar sein. Gib die vo
 (() => {
 "use strict";
 
-/* HILFSFUNKTION */
+/* HILFSFUNKTIONEN */
 
 const $ = id => document.getElementById(id);
 
@@ -836,7 +826,10 @@ let promptNow = null;
 let currentAttempts = 0;
 let maxAttempts = 1;
 let mode = "typing";
-let direction = "forward";
+
+/* Standard-Abfragerichtung: Deutsch → Fremdsprache */
+let direction = "backward";
+
 let cardFlipped = false;
 let checked = false;
 let total = 0;
@@ -844,8 +837,6 @@ let correct = 0;
 let wrong = 0;
 let startTime = 0;
 let timerHandle = null;
-
-/* ALLGEMEINE FUNKTIONEN */
 
 function uid() {
   return Date.now().toString(36) +
@@ -927,9 +918,13 @@ function saveDeck(name,text) {
     return false;
   }
 
-  let deck = library.find(d => d.name === name);
+  /* Bestehende ausgewählte Liste aktualisieren */
+  let deck = selectedDeck();
 
-  if (!deck) {
+  if (deck) {
+    deck.text = text;
+    deck.updated = timestamp();
+  } else {
     deck = {
       id:uid(),
       name,
@@ -939,9 +934,6 @@ function saveDeck(name,text) {
     };
 
     library.unshift(deck);
-  } else {
-    deck.text = text;
-    deck.updated = timestamp();
   }
 
   currentDeckId = deck.id;
@@ -1029,7 +1021,7 @@ function updateListStatus() {
     : "Keine gültigen Vokabeln gefunden.";
 }
 
-/* VOKABELN ÜBERNEHMEN */
+/* VOKABELLISTE ÜBERNEHMEN */
 
 $("loadTextBtn").addEventListener("click",() => {
   const name = "Eingabe " + timestamp();
@@ -1039,6 +1031,58 @@ $("loadTextBtn").addEventListener("click",() => {
       vocab.length + " Vokabeln erfolgreich übernommen.";
   }
 });
+
+/* TXT-DATEI SPEICHERN */
+
+function downloadTextFile() {
+  const text = $("vocabText").value;
+
+  if (!parseVocab(text).length) {
+    alert("Es gibt keine gültigen Vokabeln zum Speichern.");
+    return;
+  }
+
+  const deck = selectedDeck();
+
+  let filename = deck
+    ? deck.name
+    : "Vokabelliste";
+
+  filename = filename
+    .replace(/[\\/:*?"<>|]/g,"_")
+    .trim();
+
+  if (!filename.toLowerCase().endsWith(".txt")) {
+    filename += ".txt";
+  }
+
+  const blob = new Blob(
+    ["\uFEFF",text],
+    {type:"text/plain;charset=utf-8"}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = filename;
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+
+  $("listStatus").textContent =
+    "TXT-Datei wurde zum Speichern vorbereitet.";
+}
+
+$("downloadTextBtn").addEventListener(
+  "click",
+  downloadTextFile
+);
+
+/* TXT-DATEI IMPORTIEREN */
 
 $("importBtn").addEventListener("click",() => {
   $("fileInput").click();
@@ -1054,6 +1098,9 @@ $("fileInput").addEventListener("change",async event => {
 
     $("vocabText").value = text;
 
+    /* Import erzeugt eine neue Liste */
+    currentDeckId = null;
+
     if (saveDeck(file.name,text)) {
       $("listStatus").textContent =
         file.name + " · " + vocab.length + " Vokabeln geladen.";
@@ -1065,12 +1112,14 @@ $("fileInput").addEventListener("change",async event => {
   event.target.value = "";
 });
 
+/* TEXTFENSTER BEARBEITEN */
+
 $("vocabText").addEventListener("input",() => {
   vocab = parseVocab($("vocabText").value);
   updateListStatus();
 });
 
-/* KI-PROMPT IN DIE ZWISCHENABLAGE KOPIEREN */
+/* KI-PROMPT KOPIEREN */
 
 $("copyPromptBtn").addEventListener("click",async () => {
   const prompt = $("aiPrompt").value;
@@ -1105,7 +1154,7 @@ $("copyPromptBtn").addEventListener("click",async () => {
   } catch(error) {
     status.classList.add("error");
     status.textContent =
-      "Automatisches Kopieren nicht möglich. Bitte den Prompt im Textfeld markieren und manuell kopieren.";
+      "Automatisches Kopieren nicht möglich. Bitte den Prompt manuell kopieren.";
   }
 });
 
@@ -1179,14 +1228,6 @@ function updateStats() {
 /* LERNEINHEIT STARTEN */
 
 function startSession() {
-
-  /*
-    Wichtig:
-    Wenn eine gespeicherte Liste ausgewählt wurde und der Benutzer
-    den Text anschließend bearbeitet hat, werden diese Änderungen
-    vor dem Start in derselben Liste gespeichert.
-  */
-
   const text = $("vocabText").value;
   const parsed = parseVocab(text);
 
@@ -1233,12 +1274,12 @@ function startSession() {
 
   $("typingArea").classList.toggle(
     "hidden",
-   mode !== "typing"
+    mode !== "typing"
   );
 
   $("cardsArea").classList.toggle(
     "hidden",
-   mode !== "cards"
+    mode !== "cards"
   );
 
   clearInterval(timerHandle);
@@ -1329,9 +1370,13 @@ function renderComparison(input,answers) {
 
   box.className = "comparison";
 
+  /* Vergleichsseite erstellen */
+
   function makeSide(label,value,isUser) {
     const side = document.createElement("div");
-    side.className = "compare-box";
+
+    side.className = "compare-box " +
+      (isUser ? "user-answer" : "correct-answer");
 
     const caption = document.createElement("div");
     caption.className = "compare-label";
@@ -1345,13 +1390,23 @@ function renderComparison(input,answers) {
 
       span.textContent = value[i];
 
-      const differs = target[i] !== input[i];
+      if (isUser) {
+        /*
+          Grün: Zeichen stimmt an dieser Position.
+          Rot: Zeichen stimmt nicht oder ist zusätzlich.
+        */
 
-      if (differs && isUser) {
-        span.className = "bad-letter";
-      } else if (differs && !isUser) {
-        span.className = "good-letter";
+        if (i < target.length && value[i] === target[i]) {
+          span.className = "good-letter";
+        } else {
+          span.className = "bad-letter";
+        }
       }
+
+      /*
+        Die richtige Schreibweise erhält absichtlich
+        keine farbige Zeichenformatierung.
+      */
 
       word.appendChild(span);
     }
@@ -1479,11 +1534,6 @@ $("answerInput").addEventListener("keydown",event => {
     checkAnswer();
   }
 });
-
-/*
-  Enter funktioniert auch, wenn der Fokus einmal außerhalb
-  des Eingabefeldes liegt.
-*/
 
 document.addEventListener("keydown",event => {
   if (event.key !== "Enter") return;
@@ -1745,6 +1795,9 @@ function renderChart() {
 
 loadLibrary();
 renderChart();
+
+/* Standardwert auch beim Programmstart setzen */
+$("direction").value = "backward";
 
 })();
 </script>
