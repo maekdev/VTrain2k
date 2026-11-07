@@ -171,6 +171,92 @@ select {
 #progressChart {width:100%;height:auto;display:block}
 .chart-legend {font-size:12px;color:var(--muted);margin-top:5px}
 footer {text-align:center;color:var(--muted);font-size:12px;padding:20px}
+
+/* Nummerierte Schritte */
+.step-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 0 14px;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.step-heading h2 {
+  margin: 0;
+}
+
+/* Hilfe- und Prompt-Boxen */
+.info-box {
+  margin: 12px 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--light);
+}
+
+.info-box summary {
+  color: var(--navy);
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.info-content {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-content ol,
+.info-content ul {
+  padding-left: 22px;
+}
+
+.info-content li {
+  margin-bottom: 6px;
+}
+
+.prompt-text {
+  min-height: 250px;
+  margin-top: 12px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 13px;
+  background: white;
+}
+
+.copy-status {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 650;
+  margin-top: 9px;
+}
+
+.prompt-intro {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+@media(max-width:600px) {
+  .step-number {
+    flex-basis: 31px;
+    width: 31px;
+    height: 31px;
+  }
+}
+  
 @media(max-width:600px) {
   main {margin-top:12px}
   .panel {padding:16px}
@@ -203,64 +289,7 @@ footer {text-align:center;color:var(--muted);font-size:12px;padding:20px}
 
 <main>
 
-<section class="panel" id="setupPanel">
-  <h2>Deine Vokabeln</h2>
 
-  <label for="vocabText">Vokabeln einfügen</label>
-  <textarea id="vocabText" spellcheck="false"
-    placeholder="apple | Apfel&#10;to learn | lernen&#10;beautiful | schön; hübsch"></textarea>
-
-  <div class="button-row">
-    <button id="loadTextBtn">Liste übernehmen</button>
-    <button class="secondary" id="importBtn">TXT-Datei öffnen</button>
-    <input id="fileInput" type="file" accept=".txt,text/plain" class="hidden">
-  </div>
-  <div class="hint" id="listStatus">Noch keine Vokabeln geladen.</div>
-  <div class="hint">
-    Format: Fremdsprache | Deutsch. Alternative Übersetzungen
-    mit Semikolon trennen. Zeilen mit # werden ignoriert.
-  </div>
-
-  <h3>Zuletzt verwendete Listen</h3>
-  <div id="historyList" class="history-list">
-    <div class="hint">Noch keine gespeicherten Listen.</div>
-  </div>
-
-  <h3>Lernmodus</h3>
-  <div class="mode-options">
-    <button class="mode-button selected" data-mode="typing">
-      ✍️ Eingabe
-      <small style="display:block;font-weight:400">Antwort eintippen</small>
-    </button>
-    <button class="mode-button" data-mode="cards">
-      🗂️ Karteikarten
-      <small style="display:block;font-weight:400">Antwort aufdecken</small>
-    </button>
-  </div>
-
-  <div class="settings-grid">
-    <div>
-      <label for="direction">Abfragerichtung</label>
-      <select id="direction">
-        <option value="forward">Fremdsprache → Deutsch</option>
-        <option value="backward">Deutsch → Fremdsprache</option>
-        <option value="random">Zufällig gemischt</option>
-      </select>
-    </div>
-    <div>
-      <label for="attempts">Versuche pro Vokabel</label>
-      <select id="attempts">
-        <option value="1">1 Versuch</option>
-        <option value="2">2 Versuche</option>
-        <option value="3">3 Versuche</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="button-row">
-    <button id="startBtn">Lernen starten</button>
-  </div>
-</section>
 
 <section class="panel hidden" id="statsPanel">
   <h2>Statistik dieser Runde</h2>
@@ -335,6 +364,39 @@ footer {text-align:center;color:var(--muted);font-size:12px;padding:20px}
 "use strict";
 
 const $ = id => document.getElementById(id);
+
+// KI-Prompt in die Zwischenablage kopieren
+$("copyPromptBtn").addEventListener("click", async () => {
+  const prompt = $("aiPrompt").value;
+  const status = $("copyPromptStatus");
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(prompt);
+    } else {
+      // Fallback für Browser ohne Clipboard-API
+      const textarea = $("aiPrompt");
+      textarea.focus();
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+
+      const successful = document.execCommand("copy");
+
+      if (!successful) {
+        throw new Error("Kopieren nicht möglich");
+      }
+
+      textarea.setSelectionRange(0, 0);
+      textarea.blur();
+    }
+
+    status.textContent = "✓ Prompt wurde in die Zwischenablage kopiert!";
+  } catch (error) {
+    status.textContent =
+      "Kopieren nicht möglich. Bitte den Text manuell markieren und kopieren.";
+  }
+});
+  
 const LIBRARY_KEY = "vtrain2k-library-v2";
 
 let library = [];
